@@ -1,9 +1,12 @@
 import React from 'react';
-import './App.css';
+import '../../styles/App.css';
 import { withRouter } from "react-router-dom";
+import Navbar from "./Navbar"
+import Routes from "./Routes"
 
+require("../../styles/App.css");
 
-require("./App.css");
+const API = "http://localhost:3000/"
 
 class App extends React.Component {
     constructor(props) {
@@ -20,7 +23,9 @@ class App extends React.Component {
     render() {
         return (
             <div>
-            Hello world!
+                <Navbar/>
+                <Routes api={API}/>
+                Hello world!
             </div>
         )
     }
