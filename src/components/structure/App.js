@@ -9,26 +9,15 @@ require("../../styles/App.css");
 const API = "http://localhost:3000/"
 
 class App extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-
-        }
-    }
-
-    componentDidMount() {
-        //
-    }
 
     render() {
         return (
             <div>
                 <Navbar/>
                 <Routes api={API}/>
-                Hello world!
             </div>
         )
     }
 }
 
-export default App;
+export default withRouter(App);

@@ -11,11 +11,36 @@ class Project extends React.Component {
 
     componentDidMount() {
         //TODO: sciagniecie z bazy listy boardow dla danego id projektu
+        const res = "" //zaciagniete info
+        this.setState ({
+            boards: res.boards
+        })
     }
+
+    handleSubmit = data => {
+        //TODO: kontakt z bazą - dodanie nowego boarda
+    }
+
+    handleEdit = data => {
+        //TODO: kontakt z bazą - edycja danego boarda
+    }
+
+    handleDelete = data => {
+        //TODO: kontakt z bazą - usuniecie danego boarda
+    }
+
 
     render() {
         return (
-            <ProjectView boards={this.state.boards}/>
+            <div>
+                <div className="name">Projekt <u>{this.props.name}</u></div>
+                <ProjectView
+                    boards={this.state.boards}
+                    handleSubmit={this.handleSubmit}
+                    handleEdit={this.handleEdit}
+                    handleDelete={this.handleDelete}
+                />
+            </div>
         )
     }
 

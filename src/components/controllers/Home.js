@@ -11,11 +11,35 @@ class Home extends React.Component {
 
     componentDidMount() {
         //TODO: sciagniecie listy projektow z bazy
+        const res = "" //zaciagniete info
+        this.setState ({
+            projects: res.projects
+        })
+    }
+
+    handleSubmit = data => {
+        //TODO: kontakt z bazą - dodanie nowego projektu
+    }
+
+    handleEdit = data => {
+        //TODO: kontakt z bazą - edycja danego projektu
+    }
+
+    handleDelete = data => {
+        //TODO: kontakt z bazą - usuniecie danego projektu
     }
 
     render() {
         return (
-            <HomeView projects={this.state.projects}/>
+            <div>
+                <div className="name">Projekty</div>
+                <HomeView
+                    projects={this.state.projects}
+                    handleSubmit={this.handleSubmit}
+                    handleEdit={this.handleEdit}
+                    handleDelete={this.handleDelete}
+                />
+            </div>
         )
     }
 

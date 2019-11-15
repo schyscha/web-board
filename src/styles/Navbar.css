@@ -1,0 +1,15 @@
+.navbar {
+    background: #17252A;
+    color: #DEF2F1;
+    width: 100%;
+    font-size: 2em;
+    height: 50px
+}
+
+.header {
+    padding-right: 2%;
+    position: absolute;
+    right: 0;
+    font-style: italic;
+    font-weight: bold;
+}

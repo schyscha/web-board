@@ -3,18 +3,14 @@ import React from 'react';
 require("../../styles/Comment.css")
 
 class CommentView extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
 
-        }
+    renderComment = () => {
+
     }
 
     render() {
         return (
-            <div>
-
-            </div>
+            this.renderComment()
         )
     }
 
