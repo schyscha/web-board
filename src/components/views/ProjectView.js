@@ -9,7 +9,7 @@ class ProjectView extends React.Component {
     }
 
     renderBoard = (project) => {
-
+        
     }
 
     renderAddBoard = () => {

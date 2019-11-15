@@ -1,32 +1,33 @@
 import React from 'react';
 import HomeView from '../views/HomeView'
+import { ProjectService } from '../../services/ProjectService';
 
 class Home extends React.Component {
     constructor(props) {
         super(props)
+        this.projectService = new ProjectService();
         this.state = {
             projects: []
         }
     }
-
     componentDidMount() {
-        //TODO: sciagniecie listy projektow z bazy
-        const res = "" //zaciagniete info
-        this.setState ({
-            projects: res.projects
-        })
+        this.setDatabaseListener();
     }
 
-    handleSubmit = data => {
-        //TODO: kontakt z bazą - dodanie nowego projektu
+    handleSubmit = async data => {
+        const projectName = data.name;
+        this.projectService.addProject(projectName);
     }
 
     handleEdit = data => {
-        //TODO: kontakt z bazą - edycja danego projektu
+        const projectName = data.name;
+        const newProjectName = data.newName;
+        this.projectService.editProject(projectName, newProjectName);
     }
 
-    handleDelete = data => {
-        //TODO: kontakt z bazą - usuniecie danego projektu
+    handleDelete = async data => {
+        const projectName = data.name;
+        this.projectService.deleteProject(projectName);
     }
 
     render() {
@@ -43,6 +44,21 @@ class Home extends React.Component {
         )
     }
 
+    setDatabaseListener() {
+        this.projectService.projectsRef().onSnapshot(data => {
+            const listOfFetchedProjects = [];
+            data.docs.forEach(doc => {
+                const documentReference = doc.ref;
+                const data = doc.data();
+                data['ref'] = documentReference;
+                listOfFetchedProjects.push(data);
+                console.log('fetched project', data);
+            });
+            this.setState({
+                projects: listOfFetchedProjects
+            });
+        });
+    }
 }
 
 export default Home;
