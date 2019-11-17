@@ -1,15 +1,22 @@
 import React from 'react';
-
+import Project from '../controllers/Project';
 require("../../styles/Home.css")
 
 class HomeView extends React.Component {
 
     renderProjects = () => {
-        //return this.props.projects.map(project => this.renderProject(project));
+        return this.props.projects.map(project => this.renderProject(project));
     }
 
     renderProject = (project) => {
-
+        return (
+            <Project 
+            key={project.name}
+            name={project.name}
+            projectReference={project.ref}
+             >
+            </Project>
+        )
     }
 
     renderAddProject = () => {
@@ -39,7 +46,6 @@ class HomeView extends React.Component {
             </div>
         )
     }
-
 }
 
 export default HomeView;

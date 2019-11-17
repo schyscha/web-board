@@ -13,8 +13,8 @@ class App extends React.Component {
     render() {
         return (
             <div>
-                <Navbar/>
-                <Routes api={API}/>
+                <Navbar />
+                <Routes api={API} />
             </div>
         )
     }

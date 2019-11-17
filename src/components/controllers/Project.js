@@ -1,34 +1,38 @@
 import React from 'react';
 import ProjectView from '../views/ProjectView'
+import { BoardService } from '../../services/BoardService';
 
 class Project extends React.Component {
     constructor(props) {
         super(props)
+        this.projectReference = this.props.projectReference;
+        this.name = this.props.name;
+        this.boardService = new BoardService();
         this.state = {
             boards: []
         }
     }
 
     componentDidMount() {
-        //TODO: sciagniecie z bazy listy boardow dla danego id projektu
-        const res = "" //zaciagniete info
-        this.setState ({
-            boards: res.boards
-        })
+        this.setDatabaseListener();
     }
 
     handleSubmit = data => {
-        //TODO: kontakt z bazą - dodanie nowego boarda
+        const background = data.background;
+        const name = data.name;
+        this.boardService.addBoard(background, name, this.projectReference);
     }
 
     handleEdit = data => {
-        //TODO: kontakt z bazą - edycja danego boarda
+        const name = data.name;
+        const newBoard = data.newBoard;
+        this.boardService.editBoard(name, newBoard, this.projectReference);
     }
 
     handleDelete = data => {
-        //TODO: kontakt z bazą - usuniecie danego boarda
+        const name = data.name;
+        this.boardService.deleteBoard(name, this.projectReference);
     }
-
 
     render() {
         return (
@@ -44,6 +48,21 @@ class Project extends React.Component {
         )
     }
 
+    setDatabaseListener() {
+        this.boardService.boardRef(this.projectReference).onSnapshot(data => {
+            const listOfFetchedBoards = [];
+            data.docs.forEach(doc => {
+                const boardReference = doc.ref;
+                const data = doc.data();
+                data['ref'] = boardReference;
+                listOfFetchedBoards.push(data);
+                console.log('fetched board', data);
+            });
+            this.setState({
+                boards: listOfFetchedBoards
+            });
+        });
+    }
 }
 
 export default Project;
