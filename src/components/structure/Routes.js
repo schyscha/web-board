@@ -14,26 +14,32 @@ class Routes extends React.Component {
             <Switch>
                 <Route
                     path="/"
+                    exact
                     render={() => <Home api={this.props.api}/> }
                 />
                 <Route
                     path="/board"
+                    exact
                     render={() => <Board api={this.props.api}/> }
                 />
                 <Route
                     path="/column"
+                    exact
                     render={() => <Column api={this.props.api}/> }
                 />
                 <Route
                     path="/comment"
+                    exact
                     render={() => <Comment api={this.props.api}/> }
                 />
                 <Route
                     path="/project"
+                    exact
                     render={() => <Project api={this.props.api}/> }
                 />
                 <Route
                     path="/task"
+                    exact
                     render={() => <Task api={this.props.api}/> }
                 />
                 <Route
