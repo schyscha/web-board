@@ -3,13 +3,30 @@
     color: #DEF2F1;
     width: 100%;
     font-size: 2em;
-    height: 50px
+    height: 75px
 }
 
 .header {
-    padding-right: 2%;
+    padding-right: 5%;
     position: absolute;
     right: 0;
     font-style: italic;
     font-weight: bold;
+}
+
+.hello {
+    padding-left: 5%;
+    position: absolute;
+    left: 0;
+}
+
+.hello > form {
+    padding-left: 30px;
+    display: inline-block;
+    height: 100%;
+}
+
+.hello > form > input {
+    font-size: 22px;
+    vertical-align: middle;
 }
