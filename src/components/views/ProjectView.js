@@ -27,7 +27,7 @@ class ProjectView extends React.Component {
 
     renderBoards = () => {
         if (this.props.boards.length === 0) {
-            return (<div className="bookmark-info">Brak boardów!</div>)
+            return (<div className="bookmark-info shift-project">Brak boardów!</div>)
         }
 
         return this.props.boards.map(board =>
@@ -62,7 +62,7 @@ class ProjectView extends React.Component {
 
         return (
             <div style={{backgroundColor: board.background}}>
-                <div className="bookmark">
+                <div className="bookmark shift-project">
                     {board.name}
                     <Button
                         className="actionbtn"
@@ -124,7 +124,7 @@ class ProjectView extends React.Component {
 
     renderAddBoard = () => {
         return (
-            <Form inline onSubmit={this.handleSubmit} className="input">
+            <Form inline onSubmit={this.handleSubmit} className="shift-project">
                 <Form.Group>
                     <Form.Control
                         className="textfield"

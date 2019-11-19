@@ -27,7 +27,7 @@ class BoardView extends React.Component {
 
     renderColumns = () => {
         if (this.props.columns.length === 0) {
-            return (<div className="bookmark-info">Brak kolumn!</div>)
+            return (<div className="bookmark-info shift-board">Brak kolumn!</div>)
         }
 
         return this.props.columns.map(column =>
@@ -62,7 +62,7 @@ class BoardView extends React.Component {
 
         return (
             <div>
-                <div className="bookmark">
+                <div className="bookmark shift-board">
                     {column.name}
                     <Button
                         className="actionbtn"
@@ -124,7 +124,7 @@ class BoardView extends React.Component {
 
     renderAddColumn = () => {
         return (
-            <Form inline onSubmit={this.handleSubmit} className="input">
+            <Form inline onSubmit={this.handleSubmit} className="shift-board">
                 <Form.Group>
                     <Form.Control
                         className="textfield"

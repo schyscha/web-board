@@ -28,7 +28,7 @@ class ColumnView extends React.Component {
 
     renderTasks = () => {
         if (this.props.tasks.length === 0) {
-            return (<div className="bookmark-info">Brak zadań!</div>)
+            return (<div className="bookmark-info shift-column">Brak zadań!</div>)
         }
 
         return this.props.tasks.map(task =>
@@ -63,7 +63,7 @@ class ColumnView extends React.Component {
 
         return (
             <div>
-                <div className="bookmark">
+                <div className="bookmark shift-column">
                     {task.name}
                     <Button
                         className="actionbtn"
@@ -134,7 +134,7 @@ class ColumnView extends React.Component {
 
     renderAddTask = () => {
         return (
-            <Form inline onSubmit={this.handleSubmit} className="input">
+            <Form inline onSubmit={this.handleSubmit} className="shift-column">
                 <Form.Group>
                     <Form.Control
                         className="textfield"

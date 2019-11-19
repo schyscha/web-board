@@ -41,7 +41,7 @@ class HomeView extends React.Component {
 
     renderProjects = () => {
         if (this.props.projects.length === 0) {
-            return (<div className="bookmark-info">Brak projektów!</div>)
+            return (<div className="bookmark-info shift-home">Brak projektów!</div>)
         }
 
         return this.props.projects.map(project =>
@@ -75,7 +75,7 @@ class HomeView extends React.Component {
 
         return (
             <div>
-                <div className="bookmark">
+                <div className="bookmark shift-home">
                     {project.name}
                     <Button
                         className="actionbtn"
@@ -127,7 +127,7 @@ class HomeView extends React.Component {
 
     renderAddProject = () => {
         return (
-            <Form inline onSubmit={this.handleSubmit} className="input">
+            <Form inline onSubmit={this.handleSubmit} className="shift-home">
                 <Form.Group>
                     <Form.Control
                         className="textfield"
