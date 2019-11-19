@@ -9,7 +9,7 @@
     border-bottom: 2px solid;
     border-top: 2px solid;
     border-color: #FEFFFF;
-    border-radius: 10px 0px 0px 0px;
+    border-radius: 10px 0 0 0;
 }
 
 .bookmark-info {
@@ -20,18 +20,13 @@
     margin-left: 1%;
     font-style: normal;
     font-weight: bold;
-    padding-left: 0%;
     text-align: center;
     border-top: 2px solid;
     border-bottom: 2px solid;
     border-color: #FEFFFF;
-    border-radius: 10px 0px 0px 0px;
+    border-radius: 10px 0 0 0;
 }
 
 .input {
     margin-left: 1%;
-}
-
-.textfield {
-    border-radius: 0px 0px 0px 10px;
 }
