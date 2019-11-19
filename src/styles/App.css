@@ -3,11 +3,8 @@ body {
   color: #17252A;
 }
 
-.deleter {
-  height: 100% !important;
+.actionbtn {
   font-size: 0.6em;
   font-weight: bold;
   float: right;
-  display: inline-block;
-  vertical-align: middle;
 }

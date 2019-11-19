@@ -20,10 +20,8 @@ class Home extends React.Component {
         this.projectService.addProject(projectName);
     }
 
-    handleEdit = data => {
-        const projectName = data.name;
-        const newProjectName = data.newName;
-        this.projectService.editProject(projectName, newProjectName);
+    handleEdit = (name, newName) => {
+        this.projectService.editProject(name, newName);
     }
 
     handleDelete = async data => {
