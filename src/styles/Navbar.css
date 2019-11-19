@@ -30,3 +30,8 @@
     font-size: 22px;
     vertical-align: middle;
 }
+
+.dialogBtn {
+    margin-left: 30px;
+    font-weight: bold;
+}
