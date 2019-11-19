@@ -14,9 +14,10 @@ class HomeView extends React.Component {
         super(props);
         this.state = {
             render: false,
-            showModal: false,
             projectName: "",
-            newName: ""
+            newName: "",
+            modalShow: false,
+            modalProject: ""
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -42,27 +43,34 @@ class HomeView extends React.Component {
         if (this.props.projects.length === 0) {
             return (<div className="bookmark-info">Brak projektów!</div>)
         }
-        return this.props.projects.map(project => this.renderProject(project));
+
+        return this.props.projects.map(project =>
+            this.renderProject(project)
+        );
     };
+
+    renderModal = (project) => {
+        this.setState({
+            modalShow: true,
+            modalProject: project
+        })
+    }
 
     renderProject = (project) => {
 
-        const handleOpen = () => {
-            this.setState({
-                showModal: true
-            })
-        };
-
         const handleClose = () => {
             this.setState({
-                showModal: false
+                modalShow: false
             })
         };
 
         const handleEdit = () => {
             handleClose()
-            this.props.handleEdit(project.name, this.state.newName)
-            this.setState({newName: ""});
+            this.props.handleEdit(this.state.modalProject.name, this.state.newName)
+            this.setState({
+                newName: "",
+                modalProject: ""
+            });
         }
 
         return (
@@ -80,13 +88,13 @@ class HomeView extends React.Component {
                     <Button
                         className="actionbtn"
                         id={project.name}
-                        onClick={handleOpen}
+                        onClick={() => this.renderModal(project)}
                         variant="warning"
                     >
                         EDYTUJ
                     </Button>
-                    <Dialog open={this.state.showModal} aria-labelledby="form-dialog-title">
-                        <DialogTitle id="form-dialog-title">Edytuj projekt {project.name}</DialogTitle>
+                    <Dialog open={this.state.modalShow} aria-labelledby="form-dialog-title">
+                        <DialogTitle id="form-dialog-title">Edytuj projekt {this.state.modalProject.name}</DialogTitle>
                         <DialogContent>
                             <TextField
                                 autoFocus
@@ -103,7 +111,7 @@ class HomeView extends React.Component {
                             <Button onClick={handleClose} color="primary">
                                 Anuluj
                             </Button>
-                            <Button disabled={this.state.newName === ""} onClick={handleEdit} color="primary">
+                            <Button onClick={handleEdit} disabled={this.state.newName === ""} color="primary">
                                 Zapisz
                             </Button>
                         </DialogActions>
