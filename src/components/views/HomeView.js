@@ -41,7 +41,7 @@ class HomeView extends React.Component {
 
     renderProjects = () => {
         if (this.props.projects.length === 0) {
-            return (<div className="bookmark-info">Brak projektów!</div>)
+            return (<div className="bookmark-info shift-home">Brak projektów!</div>)
         }
 
         return this.props.projects.map(project =>
@@ -75,7 +75,7 @@ class HomeView extends React.Component {
 
         return (
             <div>
-                <div className="bookmark">
+                <div className="bookmark shift-home">
                     {project.name}
                     <Button
                         className="actionbtn"
@@ -120,13 +120,14 @@ class HomeView extends React.Component {
                 {/*A TU WSTAWIĆ <PROJECT> - KOLEJNE ELEMENTY ANALOGICZNIE, CZYLI W
                 PROJECTCIE POWIAZANIE Z BAZA, PRZEKAZANIE METOD BAZOWYCH DO PROJECTVIEW KTORE
                 WYSWIETLI BOARDY, ITD...*/}
+		<Project projectReference={project.ref} name={project.name}/>
             </div>
         )
     };
 
     renderAddProject = () => {
         return (
-            <Form inline onSubmit={this.handleSubmit} className="input">
+            <Form inline onSubmit={this.handleSubmit} className="shift-home">
                 <Form.Group>
                     <Form.Control
                         className="textfield"

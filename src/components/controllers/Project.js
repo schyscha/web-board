@@ -17,20 +17,18 @@ class Project extends React.Component {
         this.setDatabaseListener();
     }
 
-    handleSubmit = data => {
-        const background = data.background;
-        const name = data.name;
+    handleSubmit = (boardName, boardBackground) => {
+        const background = boardBackground;
+        const name = boardName;
         this.boardService.addBoard(background, name, this.projectReference);
     }
 
-    handleEdit = data => {
-        const name = data.name;
-        const newBoard = data.newBoard;
-        this.boardService.editBoard(name, newBoard, this.projectReference);
+    handleEdit = (n, n1, b1) => {
+        this.boardService.editBoard(n, n1, b1, this.projectReference);
     }
 
-    handleDelete = data => {
-        const name = data.name;
+    handleDelete = boardName => {
+        const name = boardName;
         this.boardService.deleteBoard(name, this.projectReference);
     }
 

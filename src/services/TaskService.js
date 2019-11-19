@@ -23,11 +23,11 @@ class TaskService {
     await columnRef.collection(FIREBASE_TASKS_COLLECTION_ID).doc(idToDelete).delete();
   }
 
-  async editTask(taskName, newTaskObject, columnRef) {
+  async editTask(taskName, newName, estimatedTime, order, columnRef) {
     const doc = await columnRef.collection(FIREBASE_TASKS_COLLECTION_ID).where('name', '==', taskName).get();
     const firstDoc = doc.docs[0];
     const idToEdit = firstDoc.id;
-    await columnRef.collection(FIREBASE_TASKS_COLLECTION_ID).doc(idToEdit).update(newTaskObject);
+    await columnRef.collection(FIREBASE_TASKS_COLLECTION_ID).doc(idToEdit).update({"name": newName, "estimatedTime": estimatedTime, "order": order});
   }
 }
 

@@ -11,17 +11,17 @@ class BoardService {
   }
 
   async deleteBoard(name, projectRef) {
-    const doc = projectRef.collection(FIREBASE_BOARDS_COLLECTION_ID).where('name', '==', name).get();
+    const doc = await projectRef.collection(FIREBASE_BOARDS_COLLECTION_ID).where('name', '==', name).get();
     const firstDoc = doc.docs[0];
     const idToDelete = firstDoc.id;
     await projectRef.collection(FIREBASE_BOARDS_COLLECTION_ID).doc(idToDelete).delete();
   }
 
-  async editBoard(boardName, newBoardObject, projectRef) {
+  async editBoard(boardName, newBoardName, newBoardBackground, projectRef) {
     const doc = await projectRef.collection(FIREBASE_BOARDS_COLLECTION_ID).where('name', '==', boardName).get();
     const firstDoc = doc.docs[0];
     const idToEdit = firstDoc.id;
-    await projectRef.collection(FIREBASE_BOARDS_COLLECTION_ID).doc(idToEdit).update(newBoardObject);
+    await projectRef.collection(FIREBASE_BOARDS_COLLECTION_ID).doc(idToEdit).update({"name": newBoardName, "background": newBoardBackground});
   }
 }
 

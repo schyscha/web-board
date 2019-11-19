@@ -5,7 +5,7 @@ import {ColumnService} from '../../services/ColumnService';
 class Board extends React.Component {
     constructor(props) {
         super(props)
-        this.boardReference = this.props.boardReference; //TODO przekazywac database reference tak jak z Home do Project
+        this.boardReference = this.props.boardReference;
         this.columnService = new ColumnService();
         this.state = {
             columns: []
@@ -16,16 +16,12 @@ class Board extends React.Component {
         this.setDatabaseListener();
     }
 
-    handleSubmit = data => {
-        const columnName = data.name;
-        const order = data.order;
+    handleSubmit = (columnName, order) => {
         this.columnService.addColumn(columnName, order, this.boardReference);
     }
 
-    handleEdit = data => {
-        const name = data.columnName;
-        const newColumnObject = data.newColumnObject;
-        this.columnService.editColumn(name, newColumnObject, this.boardReference);
+    handleEdit = (name, newColumnName, newColumnOrder) => {
+        this.columnService.editColumn(name, newColumnName, newColumnOrder, this.boardReference);
     }
 
     handleDelete = data => {
