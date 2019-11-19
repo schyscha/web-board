@@ -15,7 +15,7 @@ class Home extends React.Component {
     }
 
     handleSubmit = async data => {
-        const projectName = data.name;
+        const projectName = data.projectName;
         this.projectService.addProject(projectName);
     }
 
@@ -26,8 +26,7 @@ class Home extends React.Component {
     }
 
     handleDelete = async data => {
-        const projectName = data.name;
-        this.projectService.deleteProject(projectName);
+        this.projectService.deleteProject(data);
     }
 
     render() {
