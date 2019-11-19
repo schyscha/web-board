@@ -1,6 +1,6 @@
 import React from 'react';
 import HomeView from '../views/HomeView'
-import { ProjectService } from '../../services/ProjectService';
+import {ProjectService} from '../../services/ProjectService';
 
 class Home extends React.Component {
     constructor(props) {
@@ -10,37 +10,32 @@ class Home extends React.Component {
             projects: []
         }
     }
+
     componentDidMount() {
         this.setDatabaseListener();
     }
 
     handleSubmit = async data => {
-        const projectName = data.name;
+        const projectName = data.projectName;
         this.projectService.addProject(projectName);
     }
 
-    handleEdit = data => {
-        const projectName = data.name;
-        const newProjectName = data.newName;
-        this.projectService.editProject(projectName, newProjectName);
+    handleEdit = (name, newName) => {
+        this.projectService.editProject(name, newName);
     }
 
     handleDelete = async data => {
-        const projectName = data.name;
-        this.projectService.deleteProject(projectName);
+        this.projectService.deleteProject(data);
     }
 
     render() {
         return (
-            <div>
-                <div className="name">Projekty</div>
-                <HomeView
-                    projects={this.state.projects}
-                    handleSubmit={this.handleSubmit}
-                    handleEdit={this.handleEdit}
-                    handleDelete={this.handleDelete}
-                />
-            </div>
+            <HomeView
+                projects={this.state.projects}
+                handleSubmit={this.handleSubmit}
+                handleEdit={this.handleEdit}
+                handleDelete={this.handleDelete}
+            />
         )
     }
 

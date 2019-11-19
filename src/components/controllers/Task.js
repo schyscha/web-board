@@ -37,15 +37,12 @@ class Task extends React.Component {
 
     render() {
         return (
-            <div>
-                <div className="name">Zadanie <u>{this.props.name}</u></div>
-                <TaskView
-                    comments={this.state.comments}
-                    handleSubmit={this.handleSubmit}
-                    handleEdit={this.handleEdit}
-                    handleDelete={this.handleDelete}
-                />
-            </div>
+            <TaskView
+                comments={this.state.comments}
+                handleSubmit={this.handleSubmit}
+                handleEdit={this.handleEdit}
+                handleDelete={this.handleDelete}
+            />
         )
     }
 

@@ -37,15 +37,12 @@ class Column extends React.Component {
 
     render() {
         return (
-            <div>
-                <div className="name">Zakładka <u>{this.props.name}</u></div>
                 <ColumnView
                     tasks={this.state.tasks}
                     handleSubmit={this.handleSubmit}
                     handleEdit={this.handleEdit}
                     handleDelete={this.handleDelete}
                 />
-            </div>
         )
     }
 

@@ -8,7 +8,7 @@ class ProjectView extends React.Component {
         return this.props.boards.map(board => this.renderBoard(board));
     }
 
-    renderBoard = (project) => {
+    renderBoard = (board) => {
         
     }
 

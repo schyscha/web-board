@@ -1,23 +1,45 @@
 import React from 'react';
 import '../../styles/App.css';
-import { withRouter } from "react-router-dom";
 import Navbar from "./Navbar"
-import Routes from "./Routes"
+import Home from "../controllers/Home";
 
 require("../../styles/App.css");
 
-const API = "http://localhost:3000/"
+export function getNick() {
+    let oldNick = document.getElementById("nick").innerText;
+    let newNick;
+    while (true) {
+        newNick = prompt("Wprowadź swój nick: ", oldNick);
+        if (newNick === "") {
+            continue;
+        }
+        if (newNick == null) {
+            if (oldNick === "") {
+                continue;
+            } else {
+                break;
+            }
+        }
+        document.getElementById("nick").innerText = newNick;
+        break;
+    }
+}
 
 class App extends React.Component {
+    componentDidMount() {
+        setTimeout(function () {
+            getNick();
+        }, 150);
+    }
 
     render() {
         return (
             <div>
-                <Navbar />
-                <Routes api={API} />
+                <Navbar/>
+                <Home/>
             </div>
         )
     }
 }
 
-export default withRouter(App);
+export default App;
