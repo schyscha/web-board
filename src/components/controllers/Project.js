@@ -1,6 +1,6 @@
 import React from 'react';
 import ProjectView from '../views/ProjectView'
-import { BoardService } from '../../services/BoardService';
+import {BoardService} from '../../services/BoardService';
 
 class Project extends React.Component {
     constructor(props) {
@@ -36,15 +36,12 @@ class Project extends React.Component {
 
     render() {
         return (
-            <div>
-                <div className="name">Projekt <u>{this.props.name}</u></div>
-                <ProjectView
-                    boards={this.state.boards}
-                    handleSubmit={this.handleSubmit}
-                    handleEdit={this.handleEdit}
-                    handleDelete={this.handleDelete}
-                />
-            </div>
+            <ProjectView
+                boards={this.state.boards}
+                handleSubmit={this.handleSubmit}
+                handleEdit={this.handleEdit}
+                handleDelete={this.handleDelete}
+            />
         )
     }
 

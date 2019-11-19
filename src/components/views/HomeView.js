@@ -1,6 +1,6 @@
 import React from 'react';
-import {Link} from "react-router-dom";
 import {Button, Form} from "react-bootstrap";
+import ProjectView from "./ProjectView";
 
 require("../../styles/Home.css");
 
@@ -35,7 +35,7 @@ class HomeView extends React.Component {
 
     renderProject = (project) => {
         return (
-            <Link to="/Project">
+            <div>
                 <div className="bookmark">
                     {project.name}
                     <Button
@@ -47,7 +47,8 @@ class HomeView extends React.Component {
                         USUŃ
                     </Button>
                 </div>
-            </Link>
+
+            </div>
         )
     };
 
@@ -56,7 +57,7 @@ class HomeView extends React.Component {
             <Form inline onSubmit={this.handleSubmit} className="input">
                 <Form.Group>
                     <Form.Control
-                        className={"control-test"}
+                        className="textfield"
                         label="Nowy projekt: "
                         type="text"
                         placeholder="Nazwa nowego projektu"

@@ -1,6 +1,6 @@
 import React from 'react';
 import BoardView from '../views/BoardView';
-import { ColumnService } from '../../services/ColumnService';
+import {ColumnService} from '../../services/ColumnService';
 
 class Board extends React.Component {
     constructor(props) {
@@ -35,15 +35,12 @@ class Board extends React.Component {
 
     render() {
         return (
-            <div>
-                <div className="name">Panel <u>{this.props.name}</u></div>
-                <BoardView
-                    columns={this.state.columns}
-                    handleSubmit={this.handleSubmit}
-                    handleEdit={this.handleEdit}
-                    handleDelete={this.handleDelete}
-                />
-            </div>
+            <BoardView
+                columns={this.state.columns}
+                handleSubmit={this.handleSubmit}
+                handleEdit={this.handleEdit}
+                handleDelete={this.handleDelete}
+            />
         )
     }
 

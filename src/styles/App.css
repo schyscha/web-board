@@ -3,40 +3,6 @@ body {
   color: #17252A;
 }
 
-.name {
-  background: #FEFFFF;
-  color: #2B7A78;
-  text-align: center;
-  font-weight: bold;
-  font-size: 1.8em;
-  border-bottom: 2px solid;
-  border-bottom-color: #17252A;
-}
-
-.bookmark {
-  background: #2B7A78;
-  color: #DEF2F1;
-  font-size: 1.5em;
-  padding-left: 2%;
-  font-style: italic;
-  font-weight: bolder;
-  border-bottom: 2px solid;
-  border-top: 2px solid;
-  border-color: #FEFFFF;
-}
-
-.bookmark-info {
-  color: #2B7A78;
-  background: #DEF2F1;
-  font-size: 1.5em;
-  font-style: normal;
-  font-weight: bold;
-  padding-left: 0%;
-  text-align: center;
-  border-bottom: 2px solid;
-  border-color: #FEFFFF;
-}
-
 .deleter {
   height: 100% !important;
   font-size: 0.6em;

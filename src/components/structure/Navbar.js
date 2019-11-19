@@ -1,7 +1,5 @@
 import React from "react"
 import {Navbar} from "react-bootstrap";
-import {withRouter} from "react-router-dom"
-
 require("../../styles/Navbar.css")
 
 function NavBar() {
@@ -15,4 +13,4 @@ function NavBar() {
 
 }
 
-export default withRouter(NavBar)
+export default NavBar
