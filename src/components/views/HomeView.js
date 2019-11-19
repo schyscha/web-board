@@ -120,6 +120,7 @@ class HomeView extends React.Component {
                 {/*A TU WSTAWIĆ <PROJECT> - KOLEJNE ELEMENTY ANALOGICZNIE, CZYLI W
                 PROJECTCIE POWIAZANIE Z BAZA, PRZEKAZANIE METOD BAZOWYCH DO PROJECTVIEW KTORE
                 WYSWIETLI BOARDY, ITD...*/}
+		<Project projectReference={project.ref} name={project.name}/>
             </div>
         )
     };
