@@ -18,20 +18,20 @@ class Column extends React.Component {
 
     handleSubmit = data => {
         const estimatedTime = data.estimatedTime;
-        const loggedTime = data.loggedTime;
         const name = data.name;
         const order = data.order;
-        this.taskService.addTask(estimatedTime, loggedTime, name, order, this.columnReference);
+        this.taskService.addTask(estimatedTime, 0, name, order, this.columnReference);
     }
 
     handleEdit = data => {
         const name = data.name;
-        const newTaskObject = data.newTaskObject;
-        this.taskService.editTask(name, newTaskObject, this, this.columnReference);
+        const newName = data.newName;
+        const estimatedTime = data.estimatedTime;
+        const order = data.order;
+        this.taskService.editTask(name, newName, estimatedTime, order, this.columnReference);
     }
 
-    handleDelete = data => {
-        const name = data.name;
+    handleDelete = name => {
         this.taskService.deleteTask(name, this.columnReference);
     }
 

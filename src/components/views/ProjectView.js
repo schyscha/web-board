@@ -16,6 +16,7 @@ class ProjectView extends React.Component {
             render: false,
             boardName: "",
             newName: "",
+            newBackground: "",
             modalShow: false,
             modalBoard: "",
 	    boardBackground: ""
@@ -51,15 +52,16 @@ class ProjectView extends React.Component {
 
         const handleEdit = () => {
             handleClose()
-            this.props.handleEdit(this.state.modalBoard.name, this.state.newName)
+            this.props.handleEdit(this.state.modalBoard.name, this.state.newName, this.state.newBackground)
             this.setState({
                 newName: "",
+                newBackground: "",
                 modalBoard: ""
             });
         }
 
         return (
-            <div>
+            <div style={{backgroundColor: board.background}}>
                 <div className="bookmark">
                     {board.name}
                     <Button
@@ -70,7 +72,7 @@ class ProjectView extends React.Component {
                     >
                         USUŃ
                     </Button>
-                    {/*<Button
+                    <Button
                         className="actionbtn"
                         id={board.name}
                         onClick={() => this.renderModal(board)}
@@ -91,20 +93,31 @@ class ProjectView extends React.Component {
                                 value={this.state.newName}
                                 fullWidth
                             />
+                            <TextField
+                                autoFocus
+                                margin="dense"
+                                name="newBackground"
+                                label="Tło boarda"
+                                type="text"
+                                onChange={this.handleChange}
+                                value={this.state.newBackground}
+                                fullWidth
+                            />
                         </DialogContent>
                         <DialogActions>
                             <Button onClick={handleClose} color="primary">
                                 Anuluj
                             </Button>
-                            <Button onClick={handleEdit} disabled={this.state.newName === ""} color="primary">
+                            <Button onClick={handleEdit} disabled={this.state.newName === "" || this.state.newBackground === ""} color="primary">
                                 Zapisz
                             </Button>
                         </DialogActions>
-                    </Dialog>*/}
+                    </Dialog>
                 </div>
                 {/*A TU WSTAWIĆ <PROJECT> - KOLEJNE ELEMENTY ANALOGICZNIE, CZYLI W
                 PROJECTCIE POWIAZANIE Z BAZA, PRZEKAZANIE METOD BAZOWYCH DO PROJECTVIEW KTORE
                 WYSWIETLI BOARDY, ITD...*/}
+		<Board boardReference={board.ref} name={board.name}/>
             </div>
         )
     };
@@ -139,7 +152,6 @@ class ProjectView extends React.Component {
                 </Form.Group>
             </Form>
         );
-
     };
 
     handleDelete = e => {

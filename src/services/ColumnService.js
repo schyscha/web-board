@@ -7,7 +7,7 @@ class ColumnService {
   }
 
   async addColumn(name, order, boardRef) {
-    await boardRef.collection(FIREBASE_COLUMNS_COLLECTION_ID).add({name: name, order: order});
+    await boardRef.collection(FIREBASE_COLUMNS_COLLECTION_ID).add({"name": name, "order": order});
   }
 
   async deleteColumn(name, boardRef) {
@@ -17,11 +17,11 @@ class ColumnService {
     await boardRef.collection(FIREBASE_COLUMNS_COLLECTION_ID).doc(idToDelete).delete();
   }
 
-  async editColumn(columnName, newColumnObject, boardRef) {
+  async editColumn(columnName, newName, newOrder, boardRef) {
     const doc = await boardRef.collection(FIREBASE_COLUMNS_COLLECTION_ID).where('name', '==', columnName).get();
     const firstDoc = doc.docs[0];
     const idToEdit = firstDoc.id;
-    await boardRef.collection(FIREBASE_COLUMNS_COLLECTION_ID).doc(idToEdit).update(newColumnObject);
+    await boardRef.collection(FIREBASE_COLUMNS_COLLECTION_ID).doc(idToEdit).update({"name": newName, "order": newOrder});
   }
 }
 
