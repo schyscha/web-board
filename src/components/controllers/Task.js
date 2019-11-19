@@ -1,6 +1,7 @@
 import React from 'react';
 import TaskView from '../views/TaskView'
-import {CommentService} from '../../services/CommentService';
+import { CommentService } from '../../services/CommentService';
+import { connect } from "react-redux";
 
 class Task extends React.Component {
     constructor(props) {
@@ -17,7 +18,7 @@ class Task extends React.Component {
     }
 
     handleSubmit = data => {
-        const author = data.author;
+        const author = this.props.nick;
         const content = data.content;
         const time = data.time;
         this.commentService.addComment(author, content, time, this.taskReference);
@@ -62,4 +63,10 @@ class Task extends React.Component {
     }
 }
 
-export default Task;
+const mapStateToProps = state => {
+    return {
+        author: state.nick
+    };
+};
+
+export default connect(mapStateToProps, null)(Task);
