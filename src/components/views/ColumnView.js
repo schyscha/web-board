@@ -176,7 +176,7 @@ class ColumnView extends React.Component {
 
     handleDelete = e => {
         e.preventDefault();
-        this.props.handleDelete(e.target);
+        this.props.handleDelete(e.target.id);
     };
 
     handleChange = e => {

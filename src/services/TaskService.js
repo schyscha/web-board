@@ -17,7 +17,7 @@ class TaskService {
   }
 
   async deleteTask(name, columnRef) {
-    const doc = columnRef.collection(FIREBASE_TASKS_COLLECTION_ID).where('name', '==', name).get();
+    const doc = await columnRef.collection(FIREBASE_TASKS_COLLECTION_ID).where('name', '==', name).get();
     const firstDoc = doc.docs[0];
     const idToDelete = firstDoc.id;
     await columnRef.collection(FIREBASE_TASKS_COLLECTION_ID).doc(idToDelete).delete();
