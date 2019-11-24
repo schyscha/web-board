@@ -41,7 +41,8 @@ class NavBar extends React.Component {
 
     renderModal = () => {
         this.setState({
-            modalShow: true
+            modalShow: true,
+            newNick: this.props.oldNick
         })
     }
 
