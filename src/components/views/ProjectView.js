@@ -6,8 +6,10 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Board from "../controllers/Board";
+import {PhotoshopPicker} from 'react-color';
 
-require("../../styles/Project.css")
+
+require("../../styles/Project.css");
 
 class ProjectView extends React.Component {
     constructor(props) {
@@ -17,9 +19,12 @@ class ProjectView extends React.Component {
             modalShow: false,
             modalBoard: "",
             boardName: "",
-            boardBackground: "",
+            boardBackground: "orange",
             newName: "",
-            newBackground: ""
+            newBackground: "",
+            showAddBackground: false,
+            showChangeBackground: false,
+            pickedBackground: "orange"
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -40,9 +45,38 @@ class ProjectView extends React.Component {
             modalShow: true,
             modalBoard: board,
             newName: board.name,
-            newBackground: board.background
+            newBackground: board.background,
         })
-    }
+    };
+
+    handleChangeColor = (color) => {
+        this.setState({
+            pickedBackground: color
+        })
+    };
+
+    handleCancelColor = () => {
+        this.setState({
+            showAddBackground: false,
+            showChangeBackground: false,
+        })
+    };
+
+    handleAcceptAddColor = () => {
+        const newColor = this.state.pickedBackground.hex;
+        this.setState({
+            boardBackground: newColor,
+            showAddBackground: false
+        })
+    };
+
+    handleAcceptChangeColor = () => {
+        const newColor = this.state.pickedBackground.hex;
+        this.setState({
+            newBackground: newColor,
+            showChangeBackground: false
+        })
+    };
 
     renderBoard = (board) => {
 
@@ -55,12 +89,12 @@ class ProjectView extends React.Component {
         };
 
         const handleEdit = () => {
-            this.props.handleEdit(this.state.modalBoard.name, this.state.newName, this.state.newBackground)
-            handleClose()
+            this.props.handleEdit(this.state.modalBoard.name, this.state.newName, this.state.newBackground);
+            handleClose();
             this.setState({
                 modalBoard: ""
             });
-        }
+        };
 
         return (
             <div style={{backgroundColor: board.background}}>
@@ -95,24 +129,37 @@ class ProjectView extends React.Component {
                                 value={this.state.newName}
                                 fullWidth
                             />
-                            <TextField
-                                autoFocus
-                                margin="dense"
-                                name="newBackground"
-                                label="Tło boarda"
-                                type="text"
-                                onChange={this.handleChange}
-                                value={this.state.newBackground}
-                                fullWidth
-                            />
+                            <Button
+                                variant="light"
+                                onClick={() => this.setState({
+                                    showChangeBackground: true,
+                                    pickedBackground: this.state.newBackground
+                                })}
+                            >
+                                Kolor boarda:
+                            </Button>
+                            <div className="colorBox long" style={{background: this.state.newBackground}}>
+                            </div>
+                            <Dialog open={this.state.showChangeBackground} aria-labelledby="form-dialog-title">
+                                <DialogTitle id="form-dialog-title">Kolor boarda {board.name}</DialogTitle>
+                                <DialogContent>
+                                    <PhotoshopPicker
+                                        header="Wybierz kolor"
+                                        onAccept={this.handleAcceptChangeColor}
+                                        onCancel={this.handleCancelColor}
+                                        color={this.state.pickedBackground}
+                                        onChangeComplete={this.handleChangeColor}/>
+                                </DialogContent>
+                            </Dialog>
                         </DialogContent>
                         <DialogActions>
                             <Button onClick={handleClose} color="primary">
                                 Anuluj
                             </Button>
-                            <Button onClick={handleEdit}
-                                    disabled={this.state.newName === "" || this.state.newBackground === ""}
-                                    color="primary">
+                            <Button
+                                onClick={handleEdit}
+                                disabled={this.state.newName === ""}
+                                color="primary">
                                 Zapisz
                             </Button>
                         </DialogActions>
@@ -136,20 +183,30 @@ class ProjectView extends React.Component {
                         onChange={this.handleChange}
                         required={true}
                     />
-                    <Form.Control
-                        className="textfield"
-                        type="text"
-                        placeholder="Tło nowego boarda"
-                        value={this.state.boardBackground}
-                        name="boardBackground"
-                        onChange={this.handleChange}
-                        required={true}
-                    />
                     <Button
-                        disabled={this.state.boardName === "" || this.state.boardBackground === ""}
-                        variant="success" type="submit">
+                        variant="light"
+                        onClick={() => this.setState({
+                            showAddBackground: true
+                        })}
+                    >
+                        Kolor nowego boarda:
+                    </Button>
+                    <div className="colorBox" style={{background: this.state.boardBackground}}>
+                    </div>
+                    <Button disabled={this.state.boardName === ""} variant="success" type="submit">
                         Dodaj
                     </Button>
+                    <Dialog open={this.state.showAddBackground} aria-labelledby="form-dialog-title">
+                        <DialogTitle id="form-dialog-title">Kolor nowego boarda</DialogTitle>
+                        <DialogContent>
+                            <PhotoshopPicker
+                                header="Wybierz kolor"
+                                onAccept={this.handleAcceptAddColor}
+                                onCancel={this.handleCancelColor}
+                                color={this.state.pickedBackground}
+                                onChangeComplete={this.handleChangeColor}/>
+                        </DialogContent>
+                    </Dialog>
                 </Form.Group>
             </Form>
         );
@@ -161,15 +218,15 @@ class ProjectView extends React.Component {
     };
 
     handleChange = e => {
-        e.preventDefault()
+        e.preventDefault();
         this.setState({[e.target.name]: e.target.value});
-    }
+    };
 
     handleSubmit = e => {
-        e.preventDefault()
-        this.props.handleSubmit(this.state.boardName, this.state.boardBackground)
-        this.setState({boardName: "", boardBackground: ""});
-    }
+        e.preventDefault();
+        this.props.handleSubmit(this.state.boardName, this.state.boardBackground);
+        this.setState({boardName: "", boardBackground: "orange"});
+    };
 
     componentDidMount() {
         setTimeout(function () {
@@ -178,7 +235,7 @@ class ProjectView extends React.Component {
     }
 
     render() {
-        let renderContainer = false
+        let renderContainer = false;
         if (this.state.render) {
             renderContainer =
                 <div>
