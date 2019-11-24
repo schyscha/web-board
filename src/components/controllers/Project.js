@@ -23,8 +23,8 @@ class Project extends React.Component {
         this.boardService.addBoard(background, name, this.projectReference);
     }
 
-    handleEdit = (n, n1, b1) => {
-        this.boardService.editBoard(n, n1, b1, this.projectReference);
+    handleEdit = (name, newName, newBackground) => {
+        this.boardService.editBoard(name, newName, newBackground, this.projectReference);
     }
 
     handleDelete = boardName => {

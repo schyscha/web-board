@@ -6,21 +6,21 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-require("../../styles/Column.css")
+require("../../styles/Column.css");
 
 class ColumnView extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             render: false,
-            taskName: "",
-            newName: "",
-	    taskOrder: "",
-            newOrder: "",
-	    estimated: "",
-            newEstimated: "",
             modalShow: false,
-            modalTask: ""
+            modalTask: "",
+            taskName: "",
+            taskOrder: "",
+            estimated: "",
+            newName: "",
+            newOrder: "",
+            newEstimated: ""
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -39,27 +39,36 @@ class ColumnView extends React.Component {
     renderModal = (task) => {
         this.setState({
             modalShow: true,
-            modalTask: task
+            modalTask: task,
+            newName: task.name,
+            newOrder: task.order,
+            newEstimated: task.estimatedTime
         })
-    }
+    };
 
     renderTask = (task) => {
 
         const handleClose = () => {
             this.setState({
+                newName: "",
+                newOrder: "",
+                newEstimated: "",
                 modalShow: false
             })
         };
 
         const handleEdit = () => {
-            handleClose()
-            this.props.handleEdit({"name": this.state.modalTask.name, "newName": this.state.newName, "order": this.state.newOrder, "estimatedTime": this.state.newEstimated})
+            this.props.handleEdit({
+                "name": this.state.modalTask.name,
+                "newName": this.state.newName,
+                "order": this.state.newOrder,
+                "estimatedTime": this.state.newEstimated
+            })
+            handleClose();
             this.setState({
-                newName: "",
-                newBackground: "",
-                modalBoard: ""
+                modalTask: ""
             });
-        }
+        };
 
         return (
             <div>
@@ -99,7 +108,8 @@ class ColumnView extends React.Component {
                                 margin="dense"
                                 name="newOrder"
                                 label="Kolejność zadania"
-                                type="text"
+                                type="number"
+                                min={1}
                                 onChange={this.handleChange}
                                 value={this.state.newOrder}
                                 fullWidth
@@ -109,7 +119,8 @@ class ColumnView extends React.Component {
                                 margin="dense"
                                 name="newEstimated"
                                 label="Czas zadania"
-                                type="text"
+                                type="number"
+                                min={1}
                                 onChange={this.handleChange}
                                 value={this.state.newEstimated}
                                 fullWidth
@@ -119,15 +130,15 @@ class ColumnView extends React.Component {
                             <Button onClick={handleClose} color="primary">
                                 Anuluj
                             </Button>
-                            <Button onClick={handleEdit} disabled={this.state.newName === "" || this.state.newOrder === "" || this.state.newEstimated === ""} color="primary">
+                            <Button onClick={handleEdit}
+                                    disabled={this.state.newName === "" || this.state.newOrder === "" || this.state.newEstimated === ""}
+                                    color="primary">
                                 Zapisz
                             </Button>
                         </DialogActions>
                     </Dialog>
                 </div>
-                {/*A TU WSTAWIĆ <PROJECT> - KOLEJNE ELEMENTY ANALOGICZNIE, CZYLI W
-                PROJECTCIE POWIAZANIE Z BAZA, PRZEKAZANIE METOD BAZOWYCH DO PROJECTVIEW KTORE
-                WYSWIETLI BOARDY, ITD...*/}
+                {/*komentarze*/}
             </div>
         )
     };
@@ -138,7 +149,6 @@ class ColumnView extends React.Component {
                 <Form.Group>
                     <Form.Control
                         className="textfield"
-                        label="Nowe zadanie: "
                         type="text"
                         placeholder="Nazwa nowego zadania"
                         value={this.state.taskName}
@@ -148,8 +158,8 @@ class ColumnView extends React.Component {
                     />
                     <Form.Control
                         className="textfield"
-                        label="Nowe zadanie: "
-                        type="text"
+                        type="number"
+                        min={1}
                         placeholder="Kolejność nowego zadania"
                         value={this.state.taskOrder}
                         name="taskOrder"
@@ -158,21 +168,23 @@ class ColumnView extends React.Component {
                     />
                     <Form.Control
                         className="textfield"
-                        label="Nowe zadanie: "
-                        type="text"
+                        type="number"
+                        min={1}
                         placeholder="Czas na nowe zadanie"
                         value={this.state.estimated}
                         name="estimated"
                         onChange={this.handleChange}
                         required={true}
                     />
-                    <Button disabled={this.state.taskName === ""} variant="success" type="submit">
+                    <Button
+                        disabled={this.state.taskName === "" || this.state.taskOrder === "" || this.state.estimated === ""}
+                        variant="success" type="submit">
                         Dodaj
                     </Button>
                 </Form.Group>
             </Form>
         );
-    }
+    };
 
     handleDelete = e => {
         e.preventDefault();
@@ -180,15 +192,19 @@ class ColumnView extends React.Component {
     };
 
     handleChange = e => {
-        e.preventDefault()
+        e.preventDefault();
         this.setState({[e.target.name]: e.target.value});
-    }
+    };
 
     handleSubmit = e => {
-        e.preventDefault()
-        this.props.handleSubmit({"estimatedTime": this.state.estimated, "name": this.state.taskName, "order": this.state.taskOrder})
+        e.preventDefault();
+        this.props.handleSubmit({
+            "estimatedTime": this.state.estimated,
+            "name": this.state.taskName,
+            "order": this.state.taskOrder
+        })
         this.setState({estimatedTime: "", taskName: "", taskOrder: ""});
-    }
+    };
 
     componentDidMount() {
         setTimeout(function () {
@@ -197,7 +213,7 @@ class ColumnView extends React.Component {
     }
 
     render() {
-        let renderContainer = false
+        let renderContainer = false;
         if (this.state.render) {
             renderContainer =
                 <div>

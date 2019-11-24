@@ -14,10 +14,10 @@ class HomeView extends React.Component {
         super(props);
         this.state = {
             render: false,
-            projectName: "",
-            newName: "",
             modalShow: false,
-            modalProject: ""
+            modalProject: "",
+            projectName: "",
+            newName: ""
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -52,26 +52,27 @@ class HomeView extends React.Component {
     renderModal = (project) => {
         this.setState({
             modalShow: true,
-            modalProject: project
+            modalProject: project,
+            newName: project.name
         })
-    }
+    };
 
     renderProject = (project) => {
 
         const handleClose = () => {
             this.setState({
-                modalShow: false
+                modalShow: false,
+                newName: ""
             })
         };
 
         const handleEdit = () => {
-            handleClose()
-            this.props.handleEdit(this.state.modalProject.name, this.state.newName)
+            this.props.handleEdit(this.state.modalProject.name, this.state.newName);
+            handleClose();
             this.setState({
-                newName: "",
                 modalProject: ""
             });
-        }
+        };
 
         return (
             <div>
@@ -117,10 +118,7 @@ class HomeView extends React.Component {
                         </DialogActions>
                     </Dialog>
                 </div>
-                {/*A TU WSTAWIĆ <PROJECT> - KOLEJNE ELEMENTY ANALOGICZNIE, CZYLI W
-                PROJECTCIE POWIAZANIE Z BAZA, PRZEKAZANIE METOD BAZOWYCH DO PROJECTVIEW KTORE
-                WYSWIETLI BOARDY, ITD...*/}
-		<Project projectReference={project.ref} name={project.name}/>
+                <Project projectReference={project.ref} name={project.name}/>
             </div>
         )
     };
@@ -131,7 +129,6 @@ class HomeView extends React.Component {
                 <Form.Group>
                     <Form.Control
                         className="textfield"
-                        label="Nowy projekt: "
                         type="text"
                         placeholder="Nazwa nowego projektu"
                         value={this.state.projectName}
@@ -150,12 +147,12 @@ class HomeView extends React.Component {
 
     handleSubmit = e => {
         e.preventDefault();
-        this.props.handleSubmit(this.state)
+        this.props.handleSubmit(this.state);
         this.setState({projectName: ""});
     };
 
     render() {
-        let renderContainer = false
+        let renderContainer = false;
         if (this.state.render) {
             renderContainer =
                 <div>

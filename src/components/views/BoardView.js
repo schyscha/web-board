@@ -7,19 +7,19 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Column from "../controllers/Column";
 
-require("../../styles/Board.css")
+require("../../styles/Board.css");
 
 class BoardView extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             render: false,
-            columnName: "",
-            newName: "",
-            columnOrder: "",
-            newOrder: "",
             modalShow: false,
             modalColumn: "",
+            columnName: "",
+            columnOrder: "",
+            newName: "",
+            newOrder: ""
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -33,32 +33,34 @@ class BoardView extends React.Component {
         return this.props.columns.map(column =>
             this.renderColumn(column)
         );
-    }
+    };
 
     renderModal = (column) => {
         this.setState({
             modalShow: true,
-            modalColumn: column
+            modalColumn: column,
+            newName: column.name,
+            newOrder: column.order
         })
-    }
+    };
 
     renderColumn = (column) => {
 
         const handleClose = () => {
             this.setState({
-                modalShow: false
+                modalShow: false,
+                newName: "",
+                newOrder: ""
             })
         };
 
         const handleEdit = () => {
-            handleClose()
-            this.props.handleEdit(this.state.modalColumn.name, this.state.newName, this.state.newOrder)
+            handleClose();
+            this.props.handleEdit(this.state.modalColumn.name, this.state.newName, this.state.newOrder);
             this.setState({
-                newName: "",
-                newOrder: "",
                 modalColumn: ""
             });
-        }
+        };
 
         return (
             <div>
@@ -98,7 +100,8 @@ class BoardView extends React.Component {
                                 margin="dense"
                                 name="newOrder"
                                 label="Kolejność kolumny"
-                                type="text"
+                                type="number"
+                                min={1}
                                 onChange={this.handleChange}
                                 value={this.state.newOrder}
                                 fullWidth
@@ -108,16 +111,14 @@ class BoardView extends React.Component {
                             <Button onClick={handleClose} color="primary">
                                 Anuluj
                             </Button>
-                            <Button onClick={handleEdit} disabled={this.state.newName === "" || this.state.newOrder === ""} color="primary">
+                            <Button onClick={handleEdit}
+                                    disabled={this.state.newName === "" || this.state.newOrder === ""} color="primary">
                                 Zapisz
                             </Button>
                         </DialogActions>
                     </Dialog>
                 </div>
-                {/*A TU WSTAWIĆ <PROJECT> - KOLEJNE ELEMENTY ANALOGICZNIE, CZYLI W
-                PROJECTCIE POWIAZANIE Z BAZA, PRZEKAZANIE METOD BAZOWYCH DO PROJECTVIEW KTORE
-                WYSWIETLI BOARDY, ITD...*/}
-		<Column columnReference={column.ref} name={column.name}/>
+                <Column columnReference={column.ref} name={column.name}/>
             </div>
         )
     };
@@ -128,7 +129,6 @@ class BoardView extends React.Component {
                 <Form.Group>
                     <Form.Control
                         className="textfield"
-                        label="Nowa kolumna: "
                         type="text"
                         placeholder="Nazwa nowej kolumny"
                         value={this.state.columnName}
@@ -138,15 +138,17 @@ class BoardView extends React.Component {
                     />
                     <Form.Control
                         className="textfield"
-                        label="Nowa kolumna: "
-                        type="text"
+                        type="number"
+                        min={1}
                         placeholder="Kolejność nowej kolumny"
                         value={this.state.columnOrder}
                         name="columnOrder"
                         onChange={this.handleChange}
                         required={true}
                     />
-                    <Button disabled={this.state.columnName === ""} variant="success" type="submit">
+                    <Button
+                        disabled={this.state.columnName === "" || this.state.columnOrder === ""} variant="success"
+                        type="submit">
                         Dodaj
                     </Button>
                 </Form.Group>
@@ -160,15 +162,15 @@ class BoardView extends React.Component {
     };
 
     handleChange = e => {
-        e.preventDefault()
+        e.preventDefault();
         this.setState({[e.target.name]: e.target.value});
-    }
+    };
 
     handleSubmit = e => {
-        e.preventDefault()
-        this.props.handleSubmit(this.state.columnName, this.state.columnOrder)
+        e.preventDefault();
+        this.props.handleSubmit(this.state.columnName, this.state.columnOrder);
         this.setState({columnName: "", columnOrder: ""});
-    }
+    };
 
     componentDidMount() {
         setTimeout(function () {
@@ -177,7 +179,7 @@ class BoardView extends React.Component {
     }
 
     render() {
-        let renderContainer = false
+        let renderContainer = false;
         if (this.state.render) {
             renderContainer =
                 <div>
