@@ -3,35 +3,32 @@
     color: #DEF2F1;
     width: 100%;
     font-size: 2em;
-    height: 75px
+    height: 75px;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+}
+
+.hello {
+    margin-left: 20px;
+}
+
+.dialogBtn {
+    font-weight: bold;
+    margin-left: 30px;
 }
 
 .header {
-    padding-right: 5%;
-    position: absolute;
-    right: 0;
     font-style: italic;
     font-weight: bold;
 }
 
-.hello {
-    padding-left: 5%;
-    position: absolute;
-    left: 0;
-}
-
-.hello > form {
-    padding-left: 30px;
-    display: inline-block;
-    height: 100%;
-}
-
-.hello > form > input {
-    font-size: 22px;
-    vertical-align: middle;
-}
-
-.dialogBtn {
-    margin-left: 30px;
+.infoButton {
+    margin-right: 20px;
     font-weight: bold;
+    width: 120px;
+}
+
+.info {
+    text-align: justify;
 }
