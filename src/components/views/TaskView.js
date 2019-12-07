@@ -1,20 +1,21 @@
 import React from 'react';
 
-require("../../styles/Task.css")
+require("../../styles/Task.css");
+require("../../styles/Comment.css");
 
 class TaskView extends React.Component {
 
     renderComments = () => {
         return this.props.comments.map(comment => this.renderComment(comment));
-    }
+    };
 
     renderComment = (comment) => {
 
-    }
+    };
 
     renderAddComment = () => {
 
-    }
+    };
 
     handleDelete = e => {
         e.preventDefault();
@@ -22,14 +23,14 @@ class TaskView extends React.Component {
     };
 
     handleEdit = e => {
-        e.preventDefault()
+        e.preventDefault();
         this.props.handleEdit(e.target)
-    }
+    };
 
     handleSubmit = e => {
-        e.preventDefault()
+        e.preventDefault();
         this.props.handleSubmit(e.target)
-    }
+    };
 
     render() {
         return (

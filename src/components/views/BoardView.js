@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, Form} from "react-bootstrap";
+import {Button} from "react-bootstrap";
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -8,6 +8,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Column from "../controllers/Column";
 
 require("../../styles/Board.css");
+require("../../styles/Column.css");
 
 class BoardView extends React.Component {
     constructor(props) {
@@ -15,6 +16,7 @@ class BoardView extends React.Component {
         this.state = {
             render: false,
             modalShow: false,
+            modalAddShow: false,
             modalColumn: "",
             columnName: "",
             columnOrder: "",
@@ -27,7 +29,7 @@ class BoardView extends React.Component {
 
     renderColumns = () => {
         if (this.props.columns.length === 0) {
-            return (<div className="bookmark-info shift-board">Brak kolumn!</div>)
+            return (<div className="no-content">Brak kolumn!</div>)
         }
 
         return this.props.columns.map(column =>
@@ -45,7 +47,6 @@ class BoardView extends React.Component {
     };
 
     renderColumn = (column) => {
-
         const handleClose = () => {
             this.setState({
                 modalShow: false,
@@ -63,24 +64,24 @@ class BoardView extends React.Component {
         };
 
         return (
-            <div>
-                <div className="bookmark shift-board">
+            <div className="column">
+                <div className="bookmark column-head">
                     {column.name}
                     <Button
-                        className="actionbtn"
+                        className="action-button delete"
                         id={column.name}
                         onClick={this.handleDelete}
                         variant="danger"
                     >
-                        USUŃ
+                        X
                     </Button>
                     <Button
-                        className="actionbtn"
+                        className="action-button edit"
                         id={column.name}
                         onClick={() => this.renderModal(column)}
                         variant="warning"
                     >
-                        EDYTUJ
+                        O
                     </Button>
                     <Dialog open={this.state.modalShow} aria-labelledby="form-dialog-title">
                         <DialogTitle id="form-dialog-title">Edytuj kolumnę {this.state.modalColumn.name}</DialogTitle>
@@ -123,36 +124,75 @@ class BoardView extends React.Component {
         )
     };
 
+    renderAddModal = () => {
+        this.setState({
+            modalAddShow: true,
+        })
+    };
+
     renderAddColumn = () => {
+        const handleClose = () => {
+            this.setState({
+                modalAddShow: false,
+                newName: ""
+            })
+        };
+
+        const handleAdd = () => {
+            this.props.handleSubmit(this.state.columnName, this.state.columnOrder);
+            this.setState({columnName: "", columnOrder: ""});
+            handleClose();
+            this.setState({
+                modalColumn: ""
+            });
+        };
+
         return (
-            <Form inline onSubmit={this.handleSubmit} className="shift-board">
-                <Form.Group>
-                    <Form.Control
-                        className="textfield"
-                        type="text"
-                        placeholder="Nazwa nowej kolumny"
-                        value={this.state.columnName}
-                        name="columnName"
-                        onChange={this.handleChange}
-                        required={true}
-                    />
-                    <Form.Control
-                        className="textfield"
-                        type="number"
-                        min={1}
-                        placeholder="Kolejność nowej kolumny"
-                        value={this.state.columnOrder}
-                        name="columnOrder"
-                        onChange={this.handleChange}
-                        required={true}
-                    />
-                    <Button
-                        disabled={this.state.columnName === "" || this.state.columnOrder === ""} variant="success"
-                        type="submit">
-                        Dodaj
-                    </Button>
-                </Form.Group>
-            </Form>
+            <div className="new-column-button-wrapper">
+                <Button
+                    className="add-button new-column"
+                    onClick={this.renderAddModal}
+                    variant="success"
+                >
+                    +
+                </Button>
+                <Dialog open={this.state.modalAddShow} aria-labelledby="form-dialog-title">
+                    <DialogTitle id="form-dialog-title">Dodaj kolumnę</DialogTitle>
+                    <DialogContent>
+                        <TextField
+                            autoFocus
+                            margin="dense"
+                            name="columnName"
+                            label="Nazwa kolumny"
+                            type="text"
+                            onChange={this.handleChange}
+                            value={this.state.columnName}
+                            fullWidth
+                        >
+                        </TextField>
+                        <TextField
+                            margin="dense"
+                            name="columnOrder"
+                            label="Kolejność"
+                            type="number"
+                            min={1}
+                            onChange={this.handleChange}
+                            value={this.state.columnOrder}
+                            fullWidth
+                        >
+                        </TextField>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={handleClose} color="primary">
+                            Anuluj
+                        </Button>
+                        <Button onClick={handleAdd} disabled={this.state.columnName === ""
+                        || this.state.columnOrder === ""} color="primary">
+                            Dodaj
+                        </Button>
+                    </DialogActions>
+                </Dialog>
+            </div>
         );
     };
 
@@ -182,7 +222,7 @@ class BoardView extends React.Component {
         let renderContainer = false;
         if (this.state.render) {
             renderContainer =
-                <div>
+                <div className="board-body">
                     {this.renderColumns()}
                     {this.renderAddColumn()}
                 </div>

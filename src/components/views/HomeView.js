@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, Form} from "react-bootstrap";
+import {Button} from "react-bootstrap";
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -7,7 +7,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Project from "../controllers/Project";
 
-require("../../styles/Home.css");
+require("../../styles/Project.css");
 
 class HomeView extends React.Component {
     constructor(props) {
@@ -15,6 +15,7 @@ class HomeView extends React.Component {
         this.state = {
             render: false,
             modalShow: false,
+            modalAddShow: false,
             modalProject: "",
             projectName: "",
             newName: ""
@@ -41,7 +42,7 @@ class HomeView extends React.Component {
 
     renderProjects = () => {
         if (this.props.projects.length === 0) {
-            return (<div className="bookmark-info shift-home">Brak projektów!</div>)
+            return (<div className="no-content">Brak projektów!</div>)
         }
 
         return this.props.projects.map(project =>
@@ -58,7 +59,6 @@ class HomeView extends React.Component {
     };
 
     renderProject = (project) => {
-
         const handleClose = () => {
             this.setState({
                 modalShow: false,
@@ -75,24 +75,24 @@ class HomeView extends React.Component {
         };
 
         return (
-            <div>
-                <div className="bookmark shift-home">
+            <div className="project">
+                <div className="bookmark project-head">
                     {project.name}
                     <Button
-                        className="actionbtn"
+                        className="action-button delete"
                         id={project.name}
                         onClick={this.handleDelete}
                         variant="danger"
                     >
-                        USUŃ
+                        X
                     </Button>
                     <Button
-                        className="actionbtn"
+                        className="action-button edit"
                         id={project.name}
                         onClick={() => this.renderModal(project)}
                         variant="warning"
                     >
-                        EDYTUJ
+                        O
                     </Button>
                     <Dialog open={this.state.modalShow} aria-labelledby="form-dialog-title">
                         <DialogTitle id="form-dialog-title">Edytuj projekt {this.state.modalProject.name}</DialogTitle>
@@ -123,26 +123,62 @@ class HomeView extends React.Component {
         )
     };
 
-    renderAddProject = () => {
-        return (
-            <Form inline onSubmit={this.handleSubmit} className="shift-home">
-                <Form.Group>
-                    <Form.Control
-                        className="textfield"
-                        type="text"
-                        placeholder="Nazwa nowego projektu"
-                        value={this.state.projectName}
-                        name="projectName"
-                        onChange={this.handleChange}
-                        required={true}
-                    />
-                    <Button disabled={this.state.projectName === ""} variant="success" type="submit">
-                        Dodaj
-                    </Button>
-                </Form.Group>
-            </Form>
-        );
+    renderAddModal = () => {
+        this.setState({
+            modalAddShow: true,
+        })
+    };
 
+    renderAddProject = () => {
+        const handleClose = () => {
+            this.setState({
+                modalAddShow: false,
+                newName: ""
+            })
+        };
+
+        const handleAdd = () => {
+            this.props.handleSubmit(this.state);
+            this.setState({projectName: ""});
+            handleClose();
+            this.setState({
+                modalProject: ""
+            });
+        };
+        return (
+            <div>
+                <Button
+                    className="add-button new-project"
+                    onClick={this.renderAddModal}
+                    variant="success"
+                >
+                    +
+                </Button>
+                <Dialog open={this.state.modalAddShow} aria-labelledby="form-dialog-title">
+                    <DialogTitle id="form-dialog-title">Nowy projekt</DialogTitle>
+                    <DialogContent>
+                        <TextField
+                            autoFocus
+                            margin="dense"
+                            name="projectName"
+                            label="Nazwa projektu"
+                            type="text"
+                            onChange={this.handleChange}
+                            value={this.state.projectName}
+                            fullWidth
+                        />
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={handleClose} color="primary">
+                            Anuluj
+                        </Button>
+                        <Button onClick={handleAdd} disabled={this.state.projectName === ""} color="primary">
+                            Dodaj
+                        </Button>
+                    </DialogActions>
+                </Dialog>
+            </div>
+        );
     };
 
     handleSubmit = e => {

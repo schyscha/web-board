@@ -6,7 +6,7 @@ class CommentView extends React.Component {
 
     renderComment = () => {
 
-    }
+    };
 
     render() {
         return (

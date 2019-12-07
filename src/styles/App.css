@@ -1,41 +1,56 @@
 body {
-  background: #DEF2F1;
-  color: #17252A;
-}
-
-.actionbtn {
-  font-size: 0.6em;
-  font-weight: bold;
-  float: right;
-}
-
-.textfield {
-  border-radius: 0 0 0 10px;
+    background: #858891;
+    color: #17252A;
 }
 
 .bookmark {
-  background: #2B7A78;
-  color: #DEF2F1;
-  font-size: 1.5em;
-  padding-left: 2%;
-  font-style: italic;
-  font-weight: bolder;
-  border-bottom: 2px solid;
-  border-top: 2px solid;
-  border-color: #FEFFFF;
-  border-radius: 10px 0 0 0;
+    font-weight: bold;
+    font-style: italic;
+    color: white;
+    text-align: center;
+    height: 39px;
+    font-size: 24px;
+    border-bottom: 1px solid black;
+    text-shadow: 1px 1px grey;
+    padding-left: 15px;
 }
 
-.bookmark-info {
-  color: #2B7A78;
-  background: #DEF2F1;
-  font-size: 1.5em;
-  padding-left: 2%;
-  font-style: normal;
-  font-weight: bold;
-  text-align: center;
-  border-top: 2px solid;
-  border-bottom: 2px solid;
-  border-color: #FEFFFF;
-  border-radius: 10px 0 0 0;
+.action-button {
+    font-size: 0.6em;
+    font-weight: bold;
+    float: right;
+    height: 38px;
+    width: 38px;
+    border: 1px solid black;
+}
+
+.edit {
+    border-bottom-left-radius: 150px;
+    border-top-left-radius: 150px;
+    margin-left: 10px;
+    background-color: #e4a907;
+}
+
+.delete {
+    border-bottom-right-radius: 150px;
+    border-top-right-radius: 150px;
+    margin-right: 1px;
+    background-color: #d73744;
+}
+
+.no-content {
+    font-weight: bold;
+    font-style: italic;
+    color: #ffffff;
+    text-align: center;
+    font-size: 22px;
+    align-self: center;
+    margin: 10px;
+    text-shadow: 1px 1px grey;
+}
+
+.add-button {
+    border: 1px solid black;
+    margin: 10px 10px;
+    border-radius: 50%;
 }

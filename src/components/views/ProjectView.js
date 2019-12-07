@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, Form} from "react-bootstrap";
+import {Button} from "react-bootstrap";
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -10,6 +10,7 @@ import {PhotoshopPicker} from 'react-color';
 
 
 require("../../styles/Project.css");
+require("../../styles/Board.css");
 
 class ProjectView extends React.Component {
     constructor(props) {
@@ -17,6 +18,7 @@ class ProjectView extends React.Component {
         this.state = {
             render: false,
             modalShow: false,
+            modalAddShow: false,
             modalBoard: "",
             boardName: "",
             boardBackground: "orange",
@@ -32,7 +34,7 @@ class ProjectView extends React.Component {
 
     renderBoards = () => {
         if (this.props.boards.length === 0) {
-            return (<div className="bookmark-info shift-project">Brak boardów!</div>)
+            return (<div className="no-content">Brak board'ów!</div>)
         }
 
         return this.props.boards.map(board =>
@@ -79,7 +81,6 @@ class ProjectView extends React.Component {
     };
 
     renderBoard = (board) => {
-
         const handleClose = () => {
             this.setState({
                 newName: "",
@@ -97,24 +98,24 @@ class ProjectView extends React.Component {
         };
 
         return (
-            <div style={{backgroundColor: board.background}}>
-                <div className="bookmark shift-project">
+            <div className="board" style={{backgroundColor: board.background}}>
+                <div className="bookmark board-head">
                     {board.name}
                     <Button
-                        className="actionbtn"
+                        className="action-button delete"
                         id={board.name}
                         onClick={this.handleDelete}
                         variant="danger"
                     >
-                        USUŃ
+                        X
                     </Button>
                     <Button
-                        className="actionbtn"
+                        className="action-button edit"
                         id={board.name}
                         onClick={() => this.renderModal(board)}
                         variant="warning"
                     >
-                        EDYTUJ
+                        O
                     </Button>
                     <Dialog open={this.state.modalShow} aria-labelledby="form-dialog-title">
                         <DialogTitle id="form-dialog-title">Edytuj boarda {this.state.modalBoard.name}</DialogTitle>
@@ -129,28 +130,31 @@ class ProjectView extends React.Component {
                                 value={this.state.newName}
                                 fullWidth
                             />
-                            <Button
-                                variant="light"
-                                onClick={() => this.setState({
-                                    showChangeBackground: true,
-                                    pickedBackground: this.state.newBackground
-                                })}
-                            >
-                                Kolor boarda:
-                            </Button>
-                            <div className="colorBox long" style={{background: this.state.newBackground}}>
+                            <div style={{display: "flex", flexFlow: "nowrap row"}}>
+                                <Button
+                                    variant="light"
+                                    onClick={() => this.setState({
+                                        showChangeBackground: true,
+                                        pickedBackground: this.state.newBackground
+                                    })}
+                                >
+                                    Kolor:
+                                </Button>
+                                <div className="color-box"
+                                     style={{background: this.state.newBackground}}>
+                                </div>
+                                <Dialog open={this.state.showChangeBackground} aria-labelledby="form-dialog-title">
+                                    <DialogTitle id="form-dialog-title">Kolor boarda {board.name}</DialogTitle>
+                                    <DialogContent>
+                                        <PhotoshopPicker
+                                            header="Wybierz kolor"
+                                            onAccept={this.handleAcceptChangeColor}
+                                            onCancel={this.handleCancelColor}
+                                            color={this.state.pickedBackground}
+                                            onChangeComplete={this.handleChangeColor}/>
+                                    </DialogContent>
+                                </Dialog>
                             </div>
-                            <Dialog open={this.state.showChangeBackground} aria-labelledby="form-dialog-title">
-                                <DialogTitle id="form-dialog-title">Kolor boarda {board.name}</DialogTitle>
-                                <DialogContent>
-                                    <PhotoshopPicker
-                                        header="Wybierz kolor"
-                                        onAccept={this.handleAcceptChangeColor}
-                                        onCancel={this.handleCancelColor}
-                                        color={this.state.pickedBackground}
-                                        onChangeComplete={this.handleChangeColor}/>
-                                </DialogContent>
-                            </Dialog>
                         </DialogContent>
                         <DialogActions>
                             <Button onClick={handleClose} color="primary">
@@ -170,45 +174,91 @@ class ProjectView extends React.Component {
         )
     };
 
+    renderAddModal = () => {
+        this.setState({
+            modalAddShow: true,
+        })
+    };
+
     renderAddBoard = () => {
+        const handleClose = () => {
+            this.setState({
+                modalAddShow: false,
+                newName: ""
+            })
+        };
+
+        const handleAdd = () => {
+            this.props.handleSubmit(this.state.boardName, this.state.boardBackground);
+            this.setState({boardName: "", boardBackground: "orange"});
+            handleClose();
+            this.setState({
+                modalBoard: ""
+            });
+        };
+
         return (
-            <Form inline onSubmit={this.handleSubmit} className="shift-project">
-                <Form.Group>
-                    <Form.Control
-                        className="textfield"
-                        type="text"
-                        placeholder="Nazwa nowego boarda"
-                        value={this.state.boardName}
-                        name="boardName"
-                        onChange={this.handleChange}
-                        required={true}
-                    />
-                    <Button
-                        variant="light"
-                        onClick={() => this.setState({
-                            showAddBackground: true
-                        })}
-                    >
-                        Kolor nowego boarda:
-                    </Button>
-                    <div className="colorBox" style={{background: this.state.boardBackground}}>
-                    </div>
-                    <Button disabled={this.state.boardName === ""} variant="success" type="submit">
-                        Dodaj
-                    </Button>
-                    <Dialog open={this.state.showAddBackground} aria-labelledby="form-dialog-title">
-                        <DialogTitle id="form-dialog-title">Kolor nowego boarda</DialogTitle>
-                        <DialogContent>
-                            <PhotoshopPicker
-                                header="Wybierz kolor"
-                                onAccept={this.handleAcceptAddColor}
-                                onCancel={this.handleCancelColor}
-                                color={this.state.pickedBackground}
-                                onChangeComplete={this.handleChangeColor}/>
-                        </DialogContent>
-                    </Dialog>
-                </Form.Group>
-            </Form>
+            <div>
+                <Button
+                    className="add-button new-board"
+                    onClick={this.renderAddModal}
+                    variant="success"
+                >
+                    +
+                </Button>
+                <Dialog open={this.state.modalAddShow} aria-labelledby="form-dialog-title">
+                    <DialogTitle id="form-dialog-title">Dodaj board'a</DialogTitle>
+                    <DialogContent>
+                        <TextField
+                            autoFocus
+                            margin="dense"
+                            name="boardName"
+                            label="Nazwa"
+                            type="text"
+                            onChange={this.handleChange}
+                            value={this.state.boardName}
+                            fullWidth
+                        >
+                        </TextField>
+                        <div style={{display: "flex", flexFlow: "nowrap row"}}>
+                            <Button
+                                margin="dense"
+                                fullWidth
+                                variant="light"
+                                onClick={() => this.setState({
+                                    showAddBackground: true
+                                })}
+                            >
+                                Kolor:
+                            </Button>
+                            <div className="color-box"
+                                 style={{background: this.state.boardBackground}}>
+                            </div>
+                        </div>
+                        <Dialog open={this.state.showAddBackground} aria-labelledby="form-dialog-title">
+                            <DialogTitle id="form-dialog-title">Kolor nowego boarda</DialogTitle>
+                            <DialogContent>
+                                <PhotoshopPicker
+                                    header="Wybierz kolor"
+                                    onAccept={this.handleAcceptAddColor}
+                                    onCancel={this.handleCancelColor}
+                                    color={this.state.pickedBackground}
+                                    onChangeComplete={this.handleChangeColor}/>
+                            </DialogContent>
+                        </Dialog>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={handleClose} color="primary">
+                            Anuluj
+                        </Button>
+                        <Button onClick={handleAdd}
+                                disabled={this.state.boardName === ""}
+                                color="primary">
+                            Dodaj
+                        </Button>
+                    </DialogActions>
+                </Dialog>
+            </div>
         );
     };
 
@@ -238,7 +288,7 @@ class ProjectView extends React.Component {
         let renderContainer = false;
         if (this.state.render) {
             renderContainer =
-                <div>
+                <div className="project-body">
                     {this.renderBoards()}
                     {this.renderAddBoard()}
                 </div>

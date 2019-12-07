@@ -72,17 +72,21 @@ class NavBar extends React.Component {
                         <span>Witaj&nbsp;</span>
                         <span id="nick">{this.props.oldNick}</span>
                         <span>!</span>
+
+
                         <Button
-                            className="dialogBtn"
+                            className="nick-change"
                             onClick={this.renderModal}
                             variant="secondary"
                         >
                             Zmień nick
                         </Button>
+
+
                     </div>
                     <div className="header">Web Board</div>
                     <Button
-                        className="infoButton"
+                        className="info-button"
                         onClick={this.showHelp}
                         variant="secondary"
                     >
@@ -113,7 +117,8 @@ class NavBar extends React.Component {
                     </DialogActions>
                 </Dialog>
                 <Dialog open={this.state.infoShow} aria-labelledby="form-dialog-title">
-                    <DialogTitle id="form-dialog-title">Webowy Board do zarządzania projektami - informacje</DialogTitle>
+                    <DialogTitle id="form-dialog-title">Webowy Board do zarządzania projektami -
+                        informacje</DialogTitle>
                     <DialogContent>
                         <p className="info">&nbsp;&nbsp;&nbsp;&nbsp;
                             Aplikacja daje możliwość tworzenia oraz edytowania tablic projektowych (boardów). Może
@@ -122,7 +127,7 @@ class NavBar extends React.Component {
                         </p>
                         <p className="info">&nbsp;&nbsp;&nbsp;&nbsp;
                             Podstawową pracy z aplikacją jest <b>projekt</b>. Aby dodać projekt należy użyć przycisku
-                            “dodaj projekt” w dolnej części ekranu. Każdy projekt po utworzeniu można usuwać oraz
+                            “nowy projekt” w dolnej części ekranu. Każdy projekt po utworzeniu można usuwać oraz
                             edytować, tj. zmieniać nazwę lub kolor tła. Odpowiednie, służące temu przyciski znajdują się
                             po prawej stronie belki projektu.
                         </p>
@@ -156,13 +161,13 @@ class NavBar extends React.Component {
                             Aby zmienić aktualny <b>nick</b> na nowy, należy kliknąć przycisk “zmień nick” znajdujący
                             się po jego prawej stronie. W prawej części paska nawigacyjnego znajduje się przycisk
                             służący do wyświetlania niniejszej <b>pomoc</b>y. W dolnej części strony znajduje się ogólny
-                            <b>czat</b>, za pomocą którego wszyscy użytkownicy mogą prowadzić wspólną konwersację na
+                            <b> czat</b>, za pomocą którego wszyscy użytkownicy mogą prowadzić wspólną konwersację na
                             tematy związane z projektem.
                         </p>
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={this.hideHelp} color="primary">
-                            Czaje
+                            Ok
                         </Button>
                     </DialogActions>
                 </Dialog>

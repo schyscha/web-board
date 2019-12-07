@@ -1,13 +1,21 @@
-.shift-project {
-    margin-left: 3%;
+.new-project {
+    display: block;
+    margin: -30px auto 20px;
+    width: 70px;
+    height: 70px;
+    font-size: 35px;
+    background-color: #4984b5;
 }
 
-.colorBox {
-    height: 35px;
-    width: 35px;
-    border-radius: 10%;
+.project {
+    margin: 20px 10px 100px;
+    border: 1px solid black;
+    background-color: #b0b2c1;
 }
 
-.long {
-    width: 100%;
+.project-head {
+    background-color: #4984b5;
+}
+
+.project-body {
 }

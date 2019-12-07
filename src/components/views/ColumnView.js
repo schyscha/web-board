@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, Form} from "react-bootstrap";
+import {Button} from "react-bootstrap";
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -7,6 +7,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 require("../../styles/Column.css");
+require("../../styles/Task.css");
 
 class ColumnView extends React.Component {
     constructor(props) {
@@ -14,6 +15,7 @@ class ColumnView extends React.Component {
         this.state = {
             render: false,
             modalShow: false,
+            modalAddShow: false,
             modalTask: "",
             taskName: "",
             taskOrder: "",
@@ -28,7 +30,7 @@ class ColumnView extends React.Component {
 
     renderTasks = () => {
         if (this.props.tasks.length === 0) {
-            return (<div className="bookmark-info shift-column">Brak zadań!</div>)
+            return (<div className="no-content">Brak zadań!</div>)
         }
 
         return this.props.tasks.map(task =>
@@ -47,7 +49,6 @@ class ColumnView extends React.Component {
     };
 
     renderTask = (task) => {
-
         const handleClose = () => {
             this.setState({
                 newName: "",
@@ -63,7 +64,7 @@ class ColumnView extends React.Component {
                 "newName": this.state.newName,
                 "order": this.state.newOrder,
                 "estimatedTime": this.state.newEstimated
-            })
+            });
             handleClose();
             this.setState({
                 modalTask: ""
@@ -71,24 +72,24 @@ class ColumnView extends React.Component {
         };
 
         return (
-            <div>
-                <div className="bookmark shift-column">
+            <div className="task">
+                <div className="bookmark task-head">
                     {task.name}
                     <Button
-                        className="actionbtn"
+                        className="action-button delete"
                         id={task.name}
                         onClick={this.handleDelete}
                         variant="danger"
                     >
-                        USUŃ
+                        X
                     </Button>
                     <Button
-                        className="actionbtn"
+                        className="action-button edit"
                         id={task.name}
                         onClick={() => this.renderModal(task)}
                         variant="warning"
                     >
-                        EDYTUJ
+                        O
                     </Button>
                     <Dialog open={this.state.modalShow} aria-labelledby="form-dialog-title">
                         <DialogTitle id="form-dialog-title">Edytuj zadanie {this.state.modalTask.name}</DialogTitle>
@@ -138,51 +139,97 @@ class ColumnView extends React.Component {
                         </DialogActions>
                     </Dialog>
                 </div>
-                {/*komentarze*/}
             </div>
         )
     };
 
+    renderAddModal = () => {
+        this.setState({
+            modalAddShow: true,
+        })
+    };
+
     renderAddTask = () => {
+        const handleClose = () => {
+            this.setState({
+                modalAddShow: false,
+                newName: ""
+            })
+        };
+
+        const handleAdd = () => {
+            this.props.handleSubmit({
+                "estimatedTime": this.state.estimated,
+                "name": this.state.taskName,
+                "order": this.state.taskOrder
+            });
+            this.setState({estimatedTime: "", taskName: "", taskOrder: ""});
+            handleClose();
+            this.setState({
+                modalTask: ""
+            });
+        };
+
         return (
-            <Form inline onSubmit={this.handleSubmit} className="shift-column">
-                <Form.Group>
-                    <Form.Control
-                        className="textfield"
-                        type="text"
-                        placeholder="Nazwa nowego zadania"
-                        value={this.state.taskName}
-                        name="taskName"
-                        onChange={this.handleChange}
-                        required={true}
-                    />
-                    <Form.Control
-                        className="textfield"
-                        type="number"
-                        min={1}
-                        placeholder="Kolejność nowego zadania"
-                        value={this.state.taskOrder}
-                        name="taskOrder"
-                        onChange={this.handleChange}
-                        required={true}
-                    />
-                    <Form.Control
-                        className="textfield"
-                        type="number"
-                        min={1}
-                        placeholder="Czas na nowe zadanie"
-                        value={this.state.estimated}
-                        name="estimated"
-                        onChange={this.handleChange}
-                        required={true}
-                    />
-                    <Button
-                        disabled={this.state.taskName === "" || this.state.taskOrder === "" || this.state.estimated === ""}
-                        variant="success" type="submit">
-                        Dodaj
-                    </Button>
-                </Form.Group>
-            </Form>
+            <div>
+                <Button
+                    className="add-button new-task"
+                    onClick={this.renderAddModal}
+                    variant="success"
+                >
+                    +
+                </Button>
+                <Dialog open={this.state.modalAddShow} aria-labelledby="form-dialog-title">
+                    <DialogTitle id="form-dialog-title">Dodaj zadanie</DialogTitle>
+                    <DialogContent>
+                        <TextField
+                            autoFocus
+                            margin="dense"
+                            name="taskName"
+                            label="Nazwa zadania"
+                            type="text"
+                            onChange={this.handleChange}
+                            value={this.state.taskName}
+                            fullWidth
+                        >
+                        </TextField>
+                        <TextField
+                            margin="dense"
+                            name="taskOrder"
+                            label="Kolejność"
+                            type="number"
+                            min={1}
+                            onChange={this.handleChange}
+                            value={this.state.taskOrder}
+                            fullWidth
+                        >
+                        </TextField>
+                        <TextField
+                            margin="dense"
+                            name="estimated"
+                            label="Szacowany czas"
+                            type="number"
+                            min={1}
+                            onChange={this.handleChange}
+                            value={this.state.estimated}
+                            fullWidth
+                        >
+                        </TextField>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={handleClose} color="primary">
+                            Anuluj
+                        </Button>
+                        <Button onClick={handleAdd}
+                                disabled={this.state.taskName === ""
+                                || this.state.taskOrder === ""
+                                || this.state.estimated === ""}
+                                color="primary">
+                            Dodaj
+                        </Button>
+                    </DialogActions>
+                </Dialog>
+            </div>
         );
     };
 
@@ -202,7 +249,7 @@ class ColumnView extends React.Component {
             "estimatedTime": this.state.estimated,
             "name": this.state.taskName,
             "order": this.state.taskOrder
-        })
+        });
         this.setState({estimatedTime: "", taskName: "", taskOrder: ""});
     };
 
