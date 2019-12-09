@@ -9,6 +9,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faClock} from "@fortawesome/free-solid-svg-icons";
 import ProgressBar from 'react-percent-bar';
+import Task from "../controllers/Task";
 
 
 require("../../styles/Column.css");
@@ -200,6 +201,7 @@ class ColumnView extends React.Component {
                         </DialogContentText>
                     </Dialog>
                 </div>
+                <Task taskReference={task.ref} name={task.name}/>
             </div>
         )
     };
