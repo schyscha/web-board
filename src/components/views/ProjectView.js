@@ -8,7 +8,6 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Board from "../controllers/Board";
 import {PhotoshopPicker} from 'react-color';
 
-
 require("../../styles/Project.css");
 require("../../styles/Board.css");
 

@@ -18,3 +18,16 @@
 
 .task {
 }
+
+.time-button {
+    background-color: #041e3d;
+    border-radius: 10px;
+    float: left;
+    height: 38px;
+    width: 38px;
+    border: 1px solid black;
+}
+
+.MuiDialogContentText-root {
+    text-align: center;
+}

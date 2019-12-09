@@ -57,8 +57,7 @@ class BoardView extends React.Component {
 
         const handleEdit = () => {
             handleClose();
-            this.state.newOrder = parseInt(this.state.newOrder)
-            this.props.handleEdit(this.state.modalColumn.name, this.state.newName, this.state.newOrder);
+            this.props.handleEdit(this.state.modalColumn.name, this.state.newName, parseInt(this.state.newOrder));
             this.setState({
                 modalColumn: ""
             });
@@ -146,8 +145,7 @@ class BoardView extends React.Component {
         };
 
         const handleAdd = () => {
-            this.state.columnOrder = parseInt(this.state.columnOrder)
-            this.props.handleSubmit(this.state.columnName, this.state.columnOrder);
+            this.props.handleSubmit(this.state.columnName, parseInt(this.state.columnOrder));
             this.setState({columnName: "", columnOrder: ""});
             handleClose();
             this.setState({
