@@ -1,13 +1,116 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+
+.chat-opener {
+  margin-right: 3px;
+  margin-bottom: 3px;
+  position: fixed;
+  background-color: rgba(31, 69, 126, 0.7);
+  width: 6%;
+  height: 12%;
+  bottom: 0;
+  right: 0;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-style: solid;
+  border-width: 1px;
+  border-color: rgb(0, 0, 0, 0.7);
+}
+
+:hover.chat-opener {
+  background-color: rgba(69, 120, 197, 0.95);
+}
+
+* .chat-opener {
+  cursor: pointer;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-size: 120%;
+}
+
+.chat-window {
+  position: fixed;
+  flex-direction: column;
+  background-color: rgb(208, 208, 226);
+  width: 15%;
+  height: 100%;
+  bottom: 0;
+  right: 0;
+  border-style: solid;
+  border-color: black;
+  border-width: 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.chat-closer {
+  margin: 3px;
+  position: absolute;
+  background-color: rgba(224, 54, 54, 0.7);
+  height: 5%;
+  padding: 6%;
+  bottom: 0;
+  left: 0;
+  color: white;
+  border-radius: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-style: solid;
+  border-width: 1px;
+  border-color: rgb(0, 0, 0, 0.7);
+}
+
+.message-sender {
+  margin: 3px;
+  position: absolute;
+  background-color: rgba(142, 241, 117, 0.7);
+  height: 5%;
+  padding: 6%;
+  bottom: 0;
+  right: 0;
+  color: white;
+  border-radius: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-style: solid;
+  border-width: 1px;
+  border-color: rgb(0, 0, 0, 0.7);
+}
+
+:hover.message-sender {
+  background-color: rgb(38, 230, 21);
+}
+
+:hover.chat-closer {
+  background-color: rgb(230, 21, 21);
+}
+
+* .chat-closer {
+  cursor: pointer;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-size: 120%;
+}
+
+.message {
+  padding: 5px;
+  color: black;
+}
+
+.send-message {
+  margin: 5px;
+  padding: 3px;
+  align-self: flex-end;
 }

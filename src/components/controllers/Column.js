@@ -54,7 +54,6 @@ class Column extends React.Component {
                 const data = doc.data();
                 data['ref'] = taskReference;
                 listOfFetchedTasks.push(data);
-                console.log('fetched task', data);
             });
             this.setState({
                 tasks: listOfFetchedTasks

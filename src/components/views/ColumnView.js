@@ -78,6 +78,7 @@ class ColumnView extends React.Component {
                     <Button
                         className="action-button delete"
                         id={task.name}
+                        key={task.name}
                         onClick={this.handleDelete}
                         variant="danger"
                     >
@@ -86,6 +87,7 @@ class ColumnView extends React.Component {
                     <Button
                         className="action-button edit"
                         id={task.name}
+                        key={task.name}
                         onClick={() => this.renderModal(task)}
                         variant="warning"
                     >
