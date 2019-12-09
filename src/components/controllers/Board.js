@@ -25,7 +25,7 @@ class Board extends React.Component {
     }
 
     handleDelete = data => {
-        const name = data.name;
+        const name = data.id;
         this.columnService.deleteColumn(name, this.boardReference);
     }
 
@@ -50,6 +50,7 @@ class Board extends React.Component {
                 listOfFetchedColumns.push(data);
                 console.log('fetched columns', data);
             });
+            listOfFetchedColumns.sort((a, b) => (a.order > b.order) ? 1 : -1)
             this.setState({
                 columns: listOfFetchedColumns
             });

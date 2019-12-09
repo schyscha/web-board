@@ -18,7 +18,8 @@ class HomeView extends React.Component {
             modalAddShow: false,
             modalProject: "",
             projectName: "",
-            newName: ""
+            newName: "",
+            validate: true
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -32,8 +33,21 @@ class HomeView extends React.Component {
 
     handleChange = e => {
         e.preventDefault();
-        this.setState({[e.target.name]: e.target.value});
+        const isValid = this.validator(e.target)
+        this.setState({
+            [e.target.name]: e.target.value,
+            validate: isValid
+        });
     };
+
+    validator = input => {
+        if (input.name === "newName" && this.state.modalProject.name === input.value)
+            return true
+        const filter = this.props.projects.find(project =>
+            project.name === input.value
+        )
+        return typeof (filter) === "undefined"
+    }
 
     handleDelete = e => {
         e.preventDefault();
@@ -112,7 +126,8 @@ class HomeView extends React.Component {
                             <Button onClick={handleClose} color="primary">
                                 Anuluj
                             </Button>
-                            <Button onClick={handleEdit} disabled={this.state.newName === ""} color="primary">
+                            <Button onClick={handleEdit} disabled={this.state.newName === "" || !this.state.validate}
+                                    color="primary">
                                 Zapisz
                             </Button>
                         </DialogActions>
@@ -172,7 +187,8 @@ class HomeView extends React.Component {
                         <Button onClick={handleClose} color="primary">
                             Anuluj
                         </Button>
-                        <Button onClick={handleAdd} disabled={this.state.projectName === ""} color="primary">
+                        <Button onClick={handleAdd} disabled={this.state.projectName === "" || !this.state.validate}
+                                color="primary">
                             Dodaj
                         </Button>
                     </DialogActions>

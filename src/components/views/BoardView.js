@@ -21,7 +21,8 @@ class BoardView extends React.Component {
             columnName: "",
             columnOrder: "",
             newName: "",
-            newOrder: ""
+            newOrder: "",
+            validate: true
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -57,6 +58,7 @@ class BoardView extends React.Component {
 
         const handleEdit = () => {
             handleClose();
+            this.state.newOrder = parseInt(this.state.newOrder)
             this.props.handleEdit(this.state.modalColumn.name, this.state.newName, this.state.newOrder);
             this.setState({
                 modalColumn: ""
@@ -113,7 +115,13 @@ class BoardView extends React.Component {
                                 Anuluj
                             </Button>
                             <Button onClick={handleEdit}
-                                    disabled={this.state.newName === "" || this.state.newOrder === ""} color="primary">
+                                    disabled={
+                                        this.state.newName === "" ||
+                                        this.state.newOrder === "" ||
+                                        this.state.newOrder < 0 ||
+                                        !this.state.validate
+                                    }
+                                    color="primary">
                                 Zapisz
                             </Button>
                         </DialogActions>
@@ -139,6 +147,7 @@ class BoardView extends React.Component {
         };
 
         const handleAdd = () => {
+            this.state.columnOrder = parseInt(this.state.columnOrder)
             this.props.handleSubmit(this.state.columnName, this.state.columnOrder);
             this.setState({columnName: "", columnOrder: ""});
             handleClose();
@@ -186,8 +195,12 @@ class BoardView extends React.Component {
                         <Button onClick={handleClose} color="primary">
                             Anuluj
                         </Button>
-                        <Button onClick={handleAdd} disabled={this.state.columnName === ""
-                        || this.state.columnOrder === ""} color="primary">
+                        <Button onClick={handleAdd} disabled={
+                            this.state.columnName === "" ||
+                            this.state.columnOrder === "" ||
+                            this.state.columnOrder < 0 ||
+                            !this.state.validate
+                        } color="primary">
                             Dodaj
                         </Button>
                     </DialogActions>
@@ -203,8 +216,21 @@ class BoardView extends React.Component {
 
     handleChange = e => {
         e.preventDefault();
-        this.setState({[e.target.name]: e.target.value});
+        const isValid = this.validator(e.target)
+        this.setState({
+            [e.target.name]: e.target.value,
+            validate: isValid
+        });
     };
+
+    validator = input => {
+        if (input.name === "newName" && this.state.modalColumn.name === input.value)
+            return true
+        const filter = this.props.columns.find(column =>
+            column.name === input.value
+        )
+        return typeof (filter) === "undefined"
+    }
 
     handleSubmit = e => {
         e.preventDefault();

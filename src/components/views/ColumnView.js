@@ -22,7 +22,8 @@ class ColumnView extends React.Component {
             estimated: "",
             newName: "",
             newOrder: "",
-            newEstimated: ""
+            newEstimated: "",
+            validate: true
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -59,6 +60,7 @@ class ColumnView extends React.Component {
         };
 
         const handleEdit = () => {
+            this.state.newOrder = parseInt(this.state.newOrder)
             this.props.handleEdit({
                 "name": this.state.modalTask.name,
                 "newName": this.state.newName,
@@ -132,7 +134,12 @@ class ColumnView extends React.Component {
                                 Anuluj
                             </Button>
                             <Button onClick={handleEdit}
-                                    disabled={this.state.newName === "" || this.state.newOrder === "" || this.state.newEstimated === ""}
+                                    disabled={this.state.newName === ""
+                                    || this.state.newOrder === ""
+                                        || this.state.newOrder < 0
+                                    || this.state.newEstimated === ""
+                                        || this.state.newEstimated < 0
+                                    || !this.state.validate}
                                     color="primary">
                                 Zapisz
                             </Button>
@@ -158,12 +165,13 @@ class ColumnView extends React.Component {
         };
 
         const handleAdd = () => {
+            this.state.taskOrder = parseInt(this.state.taskOrder)
             this.props.handleSubmit({
                 "estimatedTime": this.state.estimated,
                 "name": this.state.taskName,
                 "order": this.state.taskOrder
             });
-            this.setState({estimatedTime: "", taskName: "", taskOrder: ""});
+            this.setState({estimated: "", taskName: "", taskOrder: ""});
             handleClose();
             this.setState({
                 modalTask: ""
@@ -223,7 +231,10 @@ class ColumnView extends React.Component {
                         <Button onClick={handleAdd}
                                 disabled={this.state.taskName === ""
                                 || this.state.taskOrder === ""
-                                || this.state.estimated === ""}
+                                || this.state.taskOrder < 0
+                                || this.state.estimated === ""
+                                || this.state.estimated < 0
+                                || !this.state.validate}
                                 color="primary">
                             Dodaj
                         </Button>
@@ -240,17 +251,31 @@ class ColumnView extends React.Component {
 
     handleChange = e => {
         e.preventDefault();
-        this.setState({[e.target.name]: e.target.value});
+        const isValid = this.validator(e.target)
+        this.setState({
+            [e.target.name]: e.target.value,
+            validate: isValid
+        });
     };
 
+    validator = input => {
+        if (input.name === "newName" && this.state.modalTask.name === input.value)
+            return true
+        const filter = this.props.tasks.find(task =>
+            task.name === input.value
+        )
+        return typeof (filter) === "undefined"
+    }
+
     handleSubmit = e => {
+        console.log("DUPAAA")
         e.preventDefault();
         this.props.handleSubmit({
             "estimatedTime": this.state.estimated,
             "name": this.state.taskName,
             "order": this.state.taskOrder
         });
-        this.setState({estimatedTime: "", taskName: "", taskOrder: ""});
+        this.setState({estimated: "", taskName: "", taskOrder: ""});
     };
 
     componentDidMount() {

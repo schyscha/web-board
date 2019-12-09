@@ -26,7 +26,8 @@ class ProjectView extends React.Component {
             newBackground: "",
             showAddBackground: false,
             showChangeBackground: false,
-            pickedBackground: "orange"
+            pickedBackground: "orange",
+            validate: true
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -162,7 +163,7 @@ class ProjectView extends React.Component {
                             </Button>
                             <Button
                                 onClick={handleEdit}
-                                disabled={this.state.newName === ""}
+                                disabled={this.state.newName === "" || !this.state.validate}
                                 color="primary">
                                 Zapisz
                             </Button>
@@ -252,7 +253,7 @@ class ProjectView extends React.Component {
                             Anuluj
                         </Button>
                         <Button onClick={handleAdd}
-                                disabled={this.state.boardName === ""}
+                                disabled={this.state.boardName === "" || !this.state.validate}
                                 color="primary">
                             Dodaj
                         </Button>
@@ -269,8 +270,21 @@ class ProjectView extends React.Component {
 
     handleChange = e => {
         e.preventDefault();
-        this.setState({[e.target.name]: e.target.value});
+        const isValid = this.validator(e.target)
+        this.setState({
+            [e.target.name]: e.target.value,
+            validate: isValid
+        });
     };
+
+    validator = input => {
+        if (input.name === "newName" && this.state.modalBoard.name === input.value)
+            return true
+        const filter = this.props.boards.find(board =>
+            board.name === input.value
+        )
+        return typeof (filter) === "undefined"
+    }
 
     handleSubmit = e => {
         e.preventDefault();
