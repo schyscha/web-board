@@ -54,7 +54,6 @@ class Task extends React.Component {
                 const data = doc.data();
                 data['ref'] = commentReference;
                 listOfFetchedComments.push(data);
-                console.log('fetched comments', data);
             });
             this.setState({
                 comments: listOfFetchedComments

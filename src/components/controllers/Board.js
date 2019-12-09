@@ -48,7 +48,6 @@ class Board extends React.Component {
                 const data = doc.data();
                 data['ref'] = columnReference;
                 listOfFetchedColumns.push(data);
-                console.log('fetched columns', data);
             });
             this.setState({
                 columns: listOfFetchedColumns
