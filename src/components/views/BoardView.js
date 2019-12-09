@@ -25,7 +25,6 @@ class BoardView extends React.Component {
             validate: true
         };
         this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     renderColumns = () => {
@@ -231,12 +230,6 @@ class BoardView extends React.Component {
         )
         return typeof (filter) === "undefined"
     }
-
-    handleSubmit = e => {
-        e.preventDefault();
-        this.props.handleSubmit(this.state.columnName, this.state.columnOrder);
-        this.setState({columnName: "", columnOrder: ""});
-    };
 
     componentDidMount() {
         setTimeout(function () {

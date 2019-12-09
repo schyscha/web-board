@@ -30,7 +30,6 @@ class ProjectView extends React.Component {
             validate: true
         };
         this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     renderBoards = () => {
@@ -285,12 +284,6 @@ class ProjectView extends React.Component {
         )
         return typeof (filter) === "undefined"
     }
-
-    handleSubmit = e => {
-        e.preventDefault();
-        this.props.handleSubmit(this.state.boardName, this.state.boardBackground);
-        this.setState({boardName: "", boardBackground: "orange"});
-    };
 
     componentDidMount() {
         setTimeout(function () {

@@ -26,7 +26,6 @@ class ColumnView extends React.Component {
             validate: true
         };
         this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     renderTasks = () => {
@@ -266,17 +265,6 @@ class ColumnView extends React.Component {
         )
         return typeof (filter) === "undefined"
     }
-
-    handleSubmit = e => {
-        console.log("DUPAAA")
-        e.preventDefault();
-        this.props.handleSubmit({
-            "estimatedTime": this.state.estimated,
-            "name": this.state.taskName,
-            "order": this.state.taskOrder
-        });
-        this.setState({estimated: "", taskName: "", taskOrder: ""});
-    };
 
     componentDidMount() {
         setTimeout(function () {

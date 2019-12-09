@@ -22,7 +22,6 @@ class HomeView extends React.Component {
             validate: true
         };
         this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     componentDidMount() {
@@ -195,12 +194,6 @@ class HomeView extends React.Component {
                 </Dialog>
             </div>
         );
-    };
-
-    handleSubmit = e => {
-        e.preventDefault();
-        this.props.handleSubmit(this.state);
-        this.setState({projectName: ""});
     };
 
     render() {
