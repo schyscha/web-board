@@ -191,7 +191,7 @@ class ColumnView extends React.Component {
                                     color="primary">
                                 Zapisz
                             </Button>
-                            TODO: DOKONCZYC OBSLUGE ZMIAN PO WSTAWIENIU BACKENDU
+                            {/*TODO: DOKONCZYC OBSLUGE ZMIAN PO WSTAWIENIU BACKENDU*/}
                         </DialogActions>
                         <DialogContentText>
                             Wykorzystano {this.percentage()}% czasu
