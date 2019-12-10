@@ -37,6 +37,7 @@ class Task extends React.Component {
     render() {
         return (
             <TaskView
+                nick={this.props.author}
                 comments={this.state.comments}
                 handleSubmit={this.handleSubmit}
                 handleEdit={this.handleEdit}

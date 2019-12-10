@@ -74,6 +74,7 @@ class TaskView extends React.Component {
                         id={comment.time}
                         onClick={this.handleDelete}
                         variant="danger"
+                        disabled={this.props.nick != comment.author}
                     >
                         X
                     </Button>
@@ -82,6 +83,7 @@ class TaskView extends React.Component {
                         id={comment.time}
                         onClick={() => this.renderModal(comment)}
                         variant="warning"
+                        disabled={this.props.nick != comment.author}
                     >
                         O
                     </Button>
