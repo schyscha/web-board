@@ -54,3 +54,7 @@ body {
     margin: 10px 10px;
     border-radius: 50%;
 }
+
+.messages {
+    overflow: auto;
+}

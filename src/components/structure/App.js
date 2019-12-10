@@ -1,5 +1,4 @@
 import React from 'react';
-import '../../styles/App.css';
 import Navbar from "./Navbar"
 import Home from "../controllers/Home";
 

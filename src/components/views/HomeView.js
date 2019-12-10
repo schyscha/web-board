@@ -224,8 +224,7 @@ class HomeView extends React.Component {
 
     sendMessage = () => {
         const message = this.state.chatInputValue;
-        const author = "placeholder" + Math.random().toString(36).substring(2, 15); // TODO trzeba dorobić pozyskiwanie nicku usera
-        this.props.addMessage(message, author);
+        this.props.addMessage(message);
     }
 
     render() {

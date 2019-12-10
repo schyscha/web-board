@@ -3,6 +3,7 @@ import HomeView from '../views/HomeView'
 import { ProjectService } from '../../services/ProjectService';
 import { ChatService } from '../../services/ChatService';
 import * as hash from 'object-hash';
+import {connect} from "react-redux";
 
 class Home extends React.Component {
     constructor(props) {
@@ -33,8 +34,8 @@ class Home extends React.Component {
         this.projectService.deleteProject(data);
     }
 
-    addMessage = async (content, author) => {
-        this.chatService.addMessage(content, author);
+    addMessage = async (content) => {
+        this.chatService.addMessage(content, this.props.author);
     }
 
     render() {
@@ -68,9 +69,16 @@ class Home extends React.Component {
 
     setChatListener() {
         this.chatService.messagesRef().onSnapshot(snap => {
-            this.setState({messages: snap.data().messages});
+            const arr = snap.data().messages;
+            this.setState({messages: arr});
         });
     }
 }
 
-export default Home;
+const mapStateToProps = state => {
+    return {
+        author: state.nick
+    };
+};
+
+export default connect(mapStateToProps, null)(Home);
