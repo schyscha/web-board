@@ -1,10 +1,38 @@
-.new-column {
-    width: 40px;
-    height: 40px;
-    font-size: 40px;
+.new-comment {
+    width: 30px;
+    height: 30px;
+    font-size: 15px;
     background-color: #dadee1;
+    display: block;
+    margin: 6px auto 14px auto;
+    text-align: center;
 }
 
-.comment-head {
+.comment {
+    display: block;
+    margin: 1px auto;
+    padding-top: 5px;
+    padding-right: 5px;
     background-color: #dadee1;
+    border: 1px solid black;
+    color: #4e4e4e;
+    font-size: 18px;
+    width: 338px;
+}
+
+.comment-data-time {
+    padding: 15px;
+    text-align: left;
+}
+
+.comment-content {
+    padding: 0 20px;
+    text-align: justify;
+}
+
+.comment-author {
+    text-align: right;
+    font-style: italic;
+    padding: 15px;
+    font-size: 20px;
 }

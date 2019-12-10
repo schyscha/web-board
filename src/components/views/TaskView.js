@@ -5,7 +5,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import Column from "../controllers/Column";
+// import Column from "../controllers/Column";
 
 require("../../styles/Task.css");
 require("../../styles/Comment.css");
@@ -54,68 +54,69 @@ class TaskView extends React.Component {
         const handleEdit = () => {
             handleClose();
             this.props.handleEdit({
-	        "author": this.state.modalComment.author,
-	        "content": this.state.newContent,
-	        "time": this.state.modalComment.time
-	    });
+                "author": this.state.modalComment.author,
+                "content": this.state.newContent,
+                "time": this.state.modalComment.time
+            });
             this.setState({
                 modalColumn: ""
             });
         };
 
-	const date = new Date(comment.time);
+        const date = new Date(comment.time);
 
         return (
             <div className="comment">
-                <div className="bookmark comment-head">
-                    ({date.toLocaleDateString()} {date.toLocaleTimeString()}) {comment.author}: {comment.content}
-                    <Button
-                        className="action-button delete"
-                        id={comment.time}
-                        onClick={this.handleDelete}
-                        variant="danger"
-                        disabled={this.props.nick != comment.author}
-                    >
-                        X
-                    </Button>
-                    <Button
-                        className="action-button edit"
-                        id={comment.time}
-                        onClick={() => this.renderModal(comment)}
-                        variant="warning"
-                        disabled={this.props.nick != comment.author}
-                    >
-                        O
-                    </Button>
-                    <Dialog open={this.state.modalShow} aria-labelledby="form-dialog-title">
-                        <DialogTitle id="form-dialog-title">Edytuj komentarz {this.state.modalComment.content}</DialogTitle>
-                        <DialogContent>
-                            <TextField
-                                autoFocus
-                                margin="dense"
-                                name="newContent"
-                                label="Treść"
-                                type="text"
-                                onChange={this.handleChange}
-                                value={this.state.newContent}
-                                fullWidth
-                            />
-                        </DialogContent>
-                        <DialogActions>
-                            <Button onClick={handleClose} color="primary">
-                                Anuluj
-                            </Button>
-                            <Button onClick={handleEdit}
-                                    disabled={
-                                        this.state.newContent === "" ||
-                                        !this.state.validate
-                                    }
-                                    color="primary">
-                                Zapisz
-                            </Button>
-                        </DialogActions>
-                    </Dialog>
-                </div>
+                <Button
+                    className="action-button delete"
+                    id={comment.time}
+                    onClick={this.handleDelete}
+                    variant="danger"
+                    disabled={this.props.nick !== comment.author}
+                >
+                    X
+                </Button>
+                <Button
+                    className="action-button edit"
+                    id={comment.time}
+                    onClick={() => this.renderModal(comment)}
+                    variant="warning"
+                    disabled={this.props.nick !== comment.author}
+                >
+                    O
+                </Button>
+                <Dialog open={this.state.modalShow} aria-labelledby="form-dialog-title">
+                    <DialogTitle id="form-dialog-title">Edytuj
+                        komentarz {this.state.modalComment.content}</DialogTitle>
+                    <DialogContent>
+                        <TextField
+                            autoFocus
+                            margin="dense"
+                            name="newContent"
+                            label="Treść"
+                            type="text"
+                            onChange={this.handleChange}
+                            value={this.state.newContent}
+                            fullWidth
+                        />
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={handleClose} color="primary">
+                            Anuluj
+                        </Button>
+                        <Button onClick={handleEdit}
+                                disabled={
+                                    this.state.newContent === "" ||
+                                    !this.state.validate
+                                }
+                                color="primary">
+                            Zapisz
+                        </Button>
+                    </DialogActions>
+                </Dialog>
+                <div className="comment-data-time">{date.toLocaleDateString()} {date.toLocaleTimeString()}</div>
+                <div className="comment-content">{comment.content}</div>
+                <div className="comment-author">{comment.author}</div>
             </div>
         )
     };
@@ -135,11 +136,11 @@ class TaskView extends React.Component {
         };
 
         const handleAdd = () => {
-	    const date = new Date();
+            const date = new Date();
             this.props.handleSubmit({
-		content: this.state.commentContent,
-		time: date.toString()
-	    });
+                content: this.state.commentContent,
+                time: date.toString()
+            });
             this.setState({commentContent: ""});
             handleClose();
             this.setState({
@@ -148,7 +149,7 @@ class TaskView extends React.Component {
         };
 
         return (
-            <div className="new-comment-button-wrapper">
+            <div>
                 <Button
                     className="add-button new-comment"
                     onClick={this.renderAddModal}
@@ -194,7 +195,7 @@ class TaskView extends React.Component {
 
     handleChange = e => {
         e.preventDefault();
-        const isValid = this.validator(e.target)
+        const isValid = this.validator(e.target);
         this.setState({
             [e.target.name]: e.target.value,
             validate: isValid
@@ -203,12 +204,12 @@ class TaskView extends React.Component {
 
     validator = input => {
         if (input.name === "newContent" && this.state.modalComment.content === input.value)
-            return true
+            return true;
         const filter = this.props.comments.find(comment =>
             comment.content === input.value
-        )
+        );
         return typeof (filter) === "undefined"
-    }
+    };
 
     componentDidMount() {
         setTimeout(function () {
@@ -220,7 +221,7 @@ class TaskView extends React.Component {
         let renderContainer = false;
         if (this.state.render) {
             renderContainer =
-                <div className="board-body">
+                <div className="task-body">
                     {this.renderComments()}
                     {this.renderAddComment()}
                 </div>

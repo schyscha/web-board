@@ -96,7 +96,6 @@ class ColumnView extends React.Component {
                         className="time-button"
                         onClick={() => this.renderTimeModal(task)}
                     ><FontAwesomeIcon icon={faClock}/></Button>
-                    {task.name}
                     <Button
                         className="action-button delete"
                         id={task.name}
@@ -112,6 +111,7 @@ class ColumnView extends React.Component {
                     >
                         O
                     </Button>
+                    {task.name}
                     <Dialog open={this.state.modalShow} aria-labelledby="form-dialog-title">
                         <DialogTitle id="form-dialog-title">Edytuj zadanie {this.state.modalTask.name}</DialogTitle>
                         <DialogContent>
