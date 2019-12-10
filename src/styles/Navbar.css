@@ -7,8 +7,6 @@
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
-    position: fixed;
-    top: 0;
 }
 
 .hello {

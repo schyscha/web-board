@@ -17,12 +17,7 @@ class ChatView extends React.Component {
     renderMessage(message) {
         return (
             <div class="message">
-                <div class="message-author">
-                    <b>Autor:</b> {message.author}
-                </div>
-                <div class="message-content">
-                    <b>Wiadomość:</b> {message.message}
-                </div>
+                <b>{message.author}</b>: {message.message}
             </div>
         )
     }

@@ -14,8 +14,8 @@ code {
   margin-bottom: 3px;
   position: fixed;
   background-color: rgba(31, 69, 126, 0.7);
-  width: 6%;
-  height: 12%;
+  width: 110px;
+  height: 100px;
   bottom: 0;
   right: 0;
   color: white;
@@ -42,7 +42,7 @@ code {
   position: fixed;
   flex-direction: column;
   background-color: rgb(208, 208, 226);
-  width: 15%;
+  width: 270px;
   height: 100%;
   bottom: 0;
   right: 0;
@@ -58,10 +58,10 @@ code {
   margin: 3px;
   position: absolute;
   background-color: rgba(224, 54, 54, 0.7);
-  height: 5%;
+  height: 4%;
   padding: 6%;
   bottom: 0;
-  left: 0;
+  left: -95px;
   color: white;
   border-radius: 20%;
   display: flex;
@@ -70,13 +70,14 @@ code {
   border-style: solid;
   border-width: 1px;
   border-color: rgb(0, 0, 0, 0.7);
+  font-size: 15px;
 }
 
 .message-sender {
   margin: 3px;
   position: absolute;
   background-color: rgba(142, 241, 117, 0.7);
-  height: 5%;
+  height: 4%;
   padding: 6%;
   bottom: 0;
   right: 0;
@@ -88,6 +89,7 @@ code {
   border-style: solid;
   border-width: 1px;
   border-color: rgb(0, 0, 0, 0.7);
+  font-size: 15px;
 }
 
 :hover.message-sender {
@@ -101,7 +103,6 @@ code {
 * .chat-closer {
   cursor: pointer;
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-  font-size: 120%;
 }
 
 .message {
@@ -112,5 +113,5 @@ code {
 .send-message {
   margin: 5px;
   padding: 3px;
-  align-self: flex-end;
+  align-self: flex-start;
 }

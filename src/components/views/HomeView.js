@@ -189,24 +189,24 @@ class HomeView extends React.Component {
     renderChat = () => {
         return (
             <ChatView
-            messages={this.state.messages}></ChatView>
+                messages={this.state.messages}></ChatView>
         )
-    }
+    };
 
     renderMessageInput = () => {
         return (
             <input class="send-message"
-            onChange={this.updateInputValue}
+                   onChange={this.updateInputValue}
             >
             </input>
         )
-    }
+    };
 
     updateInputValue = e => {
         this.setState({
             chatInputValue: e.target.value
         });
-    }
+    };
 
     handleSubmit = e => {
         e.preventDefault();
@@ -216,48 +216,44 @@ class HomeView extends React.Component {
 
     showChat = () => {
         this.setState({chatHidden: false})
-    }
+    };
 
     closeChat = () => {
         this.setState({chatHidden: true})
-    }
+    };
 
     sendMessage = () => {
         const message = this.state.chatInputValue;
         this.props.addMessage(message);
-    }
+    };
 
     render() {
         let renderContainer = false;
         if (this.state.render) {
             renderContainer =
-                <div>      
+                <div>
                     <div class="chat-opener"
-                       onClick={this.showChat}
-                       style={this.state.chatHidden ? {} : { display: 'none'} }
+                         onClick={this.showChat}
+                         style={this.state.chatHidden ? {} : {display: 'none'}}
                     >
                         <div>
-                        CHAT
+                            CHAT
                         </div>
                     </div>
-                    <div class ="chat-window"
-                    style={! this.state.chatHidden ? {} : { display: 'none'}}
+                    <div class="chat-window"
+                         style={!this.state.chatHidden ? {} : {display: 'none'}}
                     >
-                    {this.renderChat()}
-                    {this.renderMessageInput()}
-                    <div class="chat-closer"
-                       onClick={this.closeChat}
-                    >
-                        <div>
+                        {this.renderChat()}
+                        {this.renderMessageInput()}
+                        <div class="chat-closer"
+                             onClick={this.closeChat}
+                        >
                             Zamknij
                         </div>
-                    </div>
-                    <div class="message-sender"
-                    onClick={this.sendMessage}>  
-                    <div>
-                        Wyślij
-                    </div>
-                    </div>
+                        <div class="message-sender"
+                             onClick={this.sendMessage}>
+                            Wyślij
+                        </div>
                     </div>
                     {this.renderProjects()}
                     {this.renderAddProject()}
