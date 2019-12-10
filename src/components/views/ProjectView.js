@@ -80,6 +80,8 @@ class ProjectView extends React.Component {
     };
 
     renderBoard = (board) => {
+        var isHidden = true
+
         const handleClose = () => {
             this.setState({
                 newName: "",
@@ -87,6 +89,16 @@ class ProjectView extends React.Component {
                 modalShow: false
             })
         };
+
+        const switchVisibility = () => {
+            const change = !isHidden
+            isHidden = change
+            console.log(hide())
+        }
+
+        const hide = () => {
+            return isHidden
+        }
 
         const handleEdit = () => {
             this.props.handleEdit(this.state.modalBoard.name, this.state.newName, this.state.newBackground);
@@ -98,7 +110,7 @@ class ProjectView extends React.Component {
 
         return (
             <div className="board" style={{backgroundColor: board.background}}>
-                <div className="bookmark board-head">
+                <div className="bookmark board-head" onClick={switchVisibility}>
                     {board.name}
                     <Button
                         className="action-button delete"
@@ -168,7 +180,7 @@ class ProjectView extends React.Component {
                         </DialogActions>
                     </Dialog>
                 </div>
-                <Board boardReference={board.ref} name={board.name}/>
+                <Board isHidden={hide} boardReference={board.ref} name={board.name}/>
             </div>
         )
     };

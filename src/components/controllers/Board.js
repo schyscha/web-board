@@ -32,6 +32,7 @@ class Board extends React.Component {
     render() {
         return (
             <BoardView
+                isHidden={this.props.isHidden}
                 columns={this.state.columns}
                 handleSubmit={this.handleSubmit}
                 handleEdit={this.handleEdit}
