@@ -238,7 +238,8 @@ class HomeView extends React.Component {
 
     sendMessage = () => {
         const message = this.state.chatInputValue;
-        this.props.addMessage(message);
+        if (message != "")
+            this.props.addMessage(message);
     };
 
     render() {
