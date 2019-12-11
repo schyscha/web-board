@@ -5,7 +5,7 @@ import { TaskService } from '../../services/TaskService';
 class Column extends React.Component {
     constructor(props) {
         super(props)
-        this.columnReference = this.props.columnReference; //dodac jako props referencje do bazy danych, podobnie jak w Home do Project
+        this.columnReference = this.props.columnReference;
         this.taskService = new TaskService();
         this.state = {
             tasks: []
@@ -35,6 +35,12 @@ class Column extends React.Component {
         this.taskService.deleteTask(name, this.columnReference);
     }
 
+    handleLogTime = data => {
+        const name = data.name
+        const time = data.time
+        this.taskService.setLoggedTime(name, time, this.columnReference)
+    }
+
     render() {
         return (
                 <ColumnView
@@ -42,6 +48,7 @@ class Column extends React.Component {
                     handleSubmit={this.handleSubmit}
                     handleEdit={this.handleEdit}
                     handleDelete={this.handleDelete}
+                    handleLogTime={this.handleLogTime}
                 />
         )
     }

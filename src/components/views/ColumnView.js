@@ -71,7 +71,8 @@ class ColumnView extends React.Component {
                 newEstimated: "",
                 modalShow: false,
                 timeModalShow: false,
-                newLoggedTime: ""
+                newLoggedTime: "",
+                modalTask: ""
             })
         };
 
@@ -83,9 +84,20 @@ class ColumnView extends React.Component {
                 "estimatedTime": this.state.newEstimated
             });
             handleClose();
-            this.setState({
-                modalTask: ""
-            });
+        };
+
+        const handleLogTime = () => {
+            this.props.handleLogTime({
+                "name": this.state.modalTask.name,
+                "time": this.state.newLoggedTime
+            })
+            handleClose();
+        }
+
+        const logTimeInputProps = {
+            step: 0.01,
+            min: 0,
+            max: task.estimatedTime
         };
 
         return (
@@ -167,13 +179,14 @@ class ColumnView extends React.Component {
                     <Dialog open={this.state.timeModalShow} aria-labelledby="form-dialog-title">
                         <DialogTitle id="form-dialog-title">Czas zadania {this.state.modalTask.name}</DialogTitle>
                         <DialogContent>
+                            <div>Dostępny czas: <span className="hour">{this.state.modalTask.estimatedTime} h</span></div>
                             <TextField
+                                inputProps={logTimeInputProps}
                                 autoFocus
                                 margin="dense"
                                 name="newLoggedTime"
                                 label="Wykorzystany czas:"
                                 type="number"
-                                min={1}
                                 onChange={this.handleChange}
                                 value={this.state.newLoggedTime}
                                 fullWidth
@@ -183,7 +196,7 @@ class ColumnView extends React.Component {
                             <Button onClick={handleClose} color="primary">
                                 Wyjdź
                             </Button>
-                            <Button onClick={handleEdit}
+                            <Button onClick={handleLogTime}
                                     disabled={this.state.newLoggedTime === ""
                                     || this.state.newLoggedTime > this.state.modalTask.estimatedTime
                                     || this.state.newLoggedTime < 0
@@ -191,7 +204,6 @@ class ColumnView extends React.Component {
                                     color="primary">
                                 Zapisz
                             </Button>
-                            {/*TODO: DOKONCZYC OBSLUGE ZMIAN PO WSTAWIENIU BACKENDU*/}
                         </DialogActions>
                         <DialogContentText>
                             Wykorzystano {this.percentage()}% czasu
