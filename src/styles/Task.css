@@ -1,6 +1,5 @@
 .new-task {
     width: 40px;
-    height: 40px;
     font-size: 20px;
     background-color: #afc6d8;
     display: block;
@@ -11,9 +10,11 @@
 .task-head {
     background-color: #afc6d8;
     border-radius: 15px;
-    margin-top: 2px;
-    margin-bottom: 2px;
+    margin: 2px 3px 5px 3px;
     border: 1px solid black;
+    max-width: 344px;
+    min-height: 39px;
+    height: auto;
 }
 
 .task {

@@ -16,7 +16,7 @@ class CommentService {
     }
 
     async deleteComment(time, taskRef) {
-        const doc = taskRef.collection(FIREBASE_COMMENT_COLLECTION_ID).where('time', '==', time).get();
+        const doc = await taskRef.collection(FIREBASE_COMMENT_COLLECTION_ID).where('time', '==', time).get();
         const firstDoc = doc.docs[0];
         const idToDelete = firstDoc.id;
         await taskRef.collection(FIREBASE_COMMENT_COLLECTION_ID).doc(idToDelete).delete();

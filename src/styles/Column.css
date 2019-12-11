@@ -10,13 +10,16 @@
 }
 
 .column-head {
+    margin-bottom: 5px;
     background-color: #89a8c2;
+    max-width: 350px;
+    min-height: 39px;
+    height: auto;
 }
-
 
 .column {
     display: block;
-    min-width: 300px;
+    min-width: 350px;
     margin: 10px;
     border: 1px solid black;
     background-color: #c3c6cb;

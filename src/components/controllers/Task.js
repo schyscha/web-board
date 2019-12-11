@@ -18,7 +18,7 @@ class Task extends React.Component {
     }
 
     handleSubmit = data => {
-        const author = this.props.nick;
+        const author = this.props.author;
         const content = data.content;
         const time = data.time;
         this.commentService.addComment(author, content, time, this.taskReference);
@@ -26,18 +26,18 @@ class Task extends React.Component {
 
     handleEdit = data => {
         const time = data.time;
-        const newCommentObject = data.newCommentObject;
+        const newCommentObject = data;
         this.commentService.editComment(time, newCommentObject, this.taskReference);
     };
 
-    handleDelete = data => {
-        const time = data.time;
+    handleDelete = time => {
         this.commentService.deleteComment(time, this.taskReference);
     };
 
     render() {
         return (
             <TaskView
+                nick={this.props.author}
                 comments={this.state.comments}
                 handleSubmit={this.handleSubmit}
                 handleEdit={this.handleEdit}

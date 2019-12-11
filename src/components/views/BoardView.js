@@ -66,7 +66,6 @@ class BoardView extends React.Component {
         return (
             <div className="column">
                 <div className="bookmark column-head">
-                    {column.name}
                     <Button
                         className="action-button delete"
                         id={column.name}
@@ -83,6 +82,7 @@ class BoardView extends React.Component {
                     >
                         O
                     </Button>
+                    {column.name}
                     <Dialog open={this.state.modalShow} aria-labelledby="form-dialog-title">
                         <DialogTitle id="form-dialog-title">Edytuj kolumnę {this.state.modalColumn.name}</DialogTitle>
                         <DialogContent>

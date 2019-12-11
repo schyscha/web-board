@@ -9,6 +9,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faClock} from "@fortawesome/free-solid-svg-icons";
 import ProgressBar from 'react-percent-bar';
+import Task from "../controllers/Task";
 
 
 require("../../styles/Column.css");
@@ -95,7 +96,6 @@ class ColumnView extends React.Component {
                         className="time-button"
                         onClick={() => this.renderTimeModal(task)}
                     ><FontAwesomeIcon icon={faClock}/></Button>
-                    {task.name}
                     <Button
                         className="action-button delete"
                         id={task.name}
@@ -114,6 +114,7 @@ class ColumnView extends React.Component {
                     >
                         O
                     </Button>
+                    {task.name}
                     <Dialog open={this.state.modalShow} aria-labelledby="form-dialog-title">
                         <DialogTitle id="form-dialog-title">Edytuj zadanie {this.state.modalTask.name}</DialogTitle>
                         <DialogContent>
@@ -203,6 +204,7 @@ class ColumnView extends React.Component {
                         </DialogContentText>
                     </Dialog>
                 </div>
+                <Task taskReference={task.ref} name={task.name}/>
             </div>
         )
     };

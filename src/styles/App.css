@@ -53,6 +53,8 @@ body {
     border: 1px solid black;
     margin: 10px 10px;
     border-radius: 50%;
+    padding-left: 0;
+    padding-right: 0;
 }
 
 .messages {
