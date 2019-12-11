@@ -51,7 +51,7 @@ code {
     border-width: 1px;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-end;
 }
 
 .chat-closer {
@@ -111,6 +111,8 @@ code {
 }
 
 .send-message {
+    position: absolute;
+    bottom: 0;
     margin: 5px;
     padding: 3px;
     width: 69%;

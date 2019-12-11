@@ -51,7 +51,7 @@ body {
 
 .add-button {
     border: 1px solid black;
-    margin: 10px 10px;
+    margin: 10px auto;
     border-radius: 50%;
     padding-left: 0;
     padding-right: 0;
@@ -59,4 +59,6 @@ body {
 
 .messages {
     overflow: auto;
+    padding-bottom: 40px;
+    margin-bottom: 10px;
 }
