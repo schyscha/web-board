@@ -8,8 +8,7 @@ class Board extends React.Component {
         this.boardReference = this.props.boardReference;
         this.columnService = new ColumnService();
         this.state = {
-            columns: [],
-            isHidden: this.props.isHidden
+            columns: []
         }
     }
 

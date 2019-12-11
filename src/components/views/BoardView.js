@@ -23,8 +23,7 @@ class BoardView extends React.Component {
             newName: "",
             newOrder: "",
             validate: true,
-            hideColumns: true,
-            isHidden: this.props.isHidden
+            hideColumns: true
         };
         this.handleChange = this.handleChange.bind(this);
     }
