@@ -4,7 +4,7 @@ import {ColumnService} from '../../services/ColumnService';
 
 class Board extends React.Component {
     constructor(props) {
-        super(props)
+        super(props);
         this.boardReference = this.props.boardReference;
         this.columnService = new ColumnService();
         this.state = {
@@ -18,16 +18,16 @@ class Board extends React.Component {
 
     handleSubmit = (columnName, order) => {
         this.columnService.addColumn(columnName, order, this.boardReference);
-    }
+    };
 
     handleEdit = (name, newColumnName, newColumnOrder) => {
         this.columnService.editColumn(name, newColumnName, newColumnOrder, this.boardReference);
-    }
+    };
 
     handleDelete = data => {
         const name = data.id;
         this.columnService.deleteColumn(name, this.boardReference);
-    }
+    };
 
     render() {
         return (
@@ -50,7 +50,7 @@ class Board extends React.Component {
                 data['ref'] = columnReference;
                 listOfFetchedColumns.push(data);
             });
-            listOfFetchedColumns.sort((a, b) => (a.order > b.order) ? 1 : -1)
+            listOfFetchedColumns.sort((a, b) => (a.order > b.order) ? 1 : -1);
             this.setState({
                 columns: listOfFetchedColumns
             });

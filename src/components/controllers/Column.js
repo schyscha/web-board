@@ -1,10 +1,10 @@
 import React from 'react';
 import ColumnView from '../views/ColumnView'
-import { TaskService } from '../../services/TaskService';
+import {TaskService} from '../../services/TaskService';
 
 class Column extends React.Component {
     constructor(props) {
-        super(props)
+        super(props);
         this.columnReference = this.props.columnReference;
         this.taskService = new TaskService();
         this.state = {
@@ -21,7 +21,7 @@ class Column extends React.Component {
         const name = data.name;
         const order = data.order;
         this.taskService.addTask(estimatedTime, 0, name, order, this.columnReference);
-    }
+    };
 
     handleEdit = data => {
         const name = data.name;
@@ -29,27 +29,27 @@ class Column extends React.Component {
         const estimatedTime = data.estimatedTime;
         const order = data.order;
         this.taskService.editTask(name, newName, estimatedTime, order, this.columnReference);
-    }
+    };
 
     handleDelete = name => {
         this.taskService.deleteTask(name, this.columnReference);
-    }
+    };
 
     handleLogTime = data => {
-        const name = data.name
-        const time = data.time
+        const name = data.name;
+        const time = data.time;
         this.taskService.setLoggedTime(name, time, this.columnReference)
-    }
+    };
 
     render() {
         return (
-                <ColumnView
-                    tasks={this.state.tasks}
-                    handleSubmit={this.handleSubmit}
-                    handleEdit={this.handleEdit}
-                    handleDelete={this.handleDelete}
-                    handleLogTime={this.handleLogTime}
-                />
+            <ColumnView
+                tasks={this.state.tasks}
+                handleSubmit={this.handleSubmit}
+                handleEdit={this.handleEdit}
+                handleDelete={this.handleDelete}
+                handleLogTime={this.handleLogTime}
+            />
         )
     }
 
@@ -62,7 +62,7 @@ class Column extends React.Component {
                 data['ref'] = taskReference;
                 listOfFetchedTasks.push(data);
             });
-            listOfFetchedTasks.sort((a, b) => (a.order > b.order) ? 1 : -1)
+            listOfFetchedTasks.sort((a, b) => (a.order > b.order) ? 1 : -1);
             this.setState({
                 tasks: listOfFetchedTasks
             });

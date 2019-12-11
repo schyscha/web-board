@@ -4,7 +4,7 @@ import {BoardService} from '../../services/BoardService';
 
 class Project extends React.Component {
     constructor(props) {
-        super(props)
+        super(props);
         this.projectReference = this.props.projectReference;
         this.name = this.props.name;
         this.boardService = new BoardService();
@@ -21,16 +21,16 @@ class Project extends React.Component {
         const background = boardBackground;
         const name = boardName;
         this.boardService.addBoard(background, name, this.projectReference);
-    }
+    };
 
     handleEdit = (name, newName, newBackground) => {
         this.boardService.editBoard(name, newName, newBackground, this.projectReference);
-    }
+    };
 
     handleDelete = boardName => {
         const name = boardName;
         this.boardService.deleteBoard(name, this.projectReference);
-    }
+    };
 
     render() {
         return (

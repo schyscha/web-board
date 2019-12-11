@@ -30,4 +30,4 @@ class CommentService {
     }
 }
 
-export { CommentService }
+export {CommentService}

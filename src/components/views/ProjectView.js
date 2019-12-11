@@ -95,11 +95,11 @@ class ProjectView extends React.Component {
 
         const switchVisibility = () => {
             this.setState(state => {
-                let oldValue = state.visibilityMap.get(board.name)
-                state.visibilityMap.set(board.name, !oldValue)
+                let oldValue = state.visibilityMap.get(board.name);
+                state.visibilityMap.set(board.name, !oldValue);
                 return state
             })
-        }
+        };
 
         const handleEdit = () => {
             this.props.handleEdit(this.state.modalBoard.name, this.state.newName, this.state.newBackground);
@@ -282,7 +282,7 @@ class ProjectView extends React.Component {
 
     handleChange = e => {
         e.preventDefault();
-        const isValid = this.validator(e.target)
+        const isValid = this.validator(e.target);
         this.setState({
             [e.target.name]: e.target.value,
             validate: isValid
@@ -291,12 +291,12 @@ class ProjectView extends React.Component {
 
     validator = input => {
         if (input.name === "newName" && this.state.modalBoard.name === input.value)
-            return true
+            return true;
         const filter = this.props.boards.find(board =>
             board.name === input.value
-        )
+        );
         return typeof (filter) === "undefined"
-    }
+    };
 
     componentDidMount() {
         setTimeout(function () {

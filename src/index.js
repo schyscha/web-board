@@ -5,7 +5,7 @@ import './styles/Chat.css';
 import App from './components/structure/App';
 import * as serviceWorker from './serviceWorker';
 import rootReducer from "./reducers/rootReducer";
-import {createStore, applyMiddleware} from "redux";
+import {applyMiddleware, createStore} from "redux";
 import {Provider} from "react-redux";
 import thunk from "redux-thunk";
 import {loadState, saveState} from "./localStorage";

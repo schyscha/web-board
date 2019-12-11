@@ -1,5 +1,5 @@
 import nickReducer from "./nickReducer";
-import { combineReducers } from "redux";
+import {combineReducers} from "redux";
 
 const rootReducer = combineReducers({
     nick: nickReducer

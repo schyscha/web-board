@@ -32,3 +32,26 @@
 .info {
     text-align: justify;
 }
+
+@media (max-width: 680px) {
+    .info-button {
+        font-size: 0.4em;
+        width: auto;
+        margin: 0;
+    }
+
+    .nick-change {
+        font-size: 0.4em;
+        margin-left: 7px;
+    }
+
+    .hello {
+        margin: 0;
+        font-size: 0.8em;
+    }
+
+    .header {
+        font-size: 0.8em;
+        margin-right: 7px;
+    }
+}

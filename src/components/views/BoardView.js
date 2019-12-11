@@ -222,7 +222,7 @@ class BoardView extends React.Component {
 
     handleChange = e => {
         e.preventDefault();
-        const isValid = this.validator(e.target)
+        const isValid = this.validator(e.target);
         this.setState({
             [e.target.name]: e.target.value,
             validate: isValid
@@ -231,12 +231,12 @@ class BoardView extends React.Component {
 
     validator = input => {
         if (input.name === "newName" && this.state.modalColumn.name === input.value)
-            return true
+            return true;
         const filter = this.props.columns.find(column =>
             column.name === input.value
-        )
+        );
         return typeof (filter) === "undefined"
-    }
+    };
 
     componentDidMount() {
         setTimeout(function () {

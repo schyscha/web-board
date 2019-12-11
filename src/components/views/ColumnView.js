@@ -91,9 +91,9 @@ class ColumnView extends React.Component {
             this.props.handleLogTime({
                 "name": this.state.modalTask.name,
                 "time": this.state.newLoggedTime
-            })
+            });
             handleClose();
-        }
+        };
 
         const logTimeInputProps = {
             step: 0.01,
@@ -192,7 +192,8 @@ class ColumnView extends React.Component {
                     <Dialog open={this.state.timeModalShow} aria-labelledby="form-dialog-title">
                         <DialogTitle id="form-dialog-title">Czas zadania {this.state.modalTask.name}</DialogTitle>
                         <DialogContent>
-                            <div>Dostępny czas: <span className="hour">{this.state.modalTask.estimatedTime} h</span></div>
+                            <div>Dostępny czas: <span className="hour">{this.state.modalTask.estimatedTime} h</span>
+                            </div>
                             <TextField
                                 inputProps={logTimeInputProps}
                                 autoFocus
@@ -231,9 +232,9 @@ class ColumnView extends React.Component {
     };
 
     percentage = () => {
-        const raw = 100 * this.state.modalTask.loggedTime / this.state.modalTask.estimatedTime
+        const raw = 100 * this.state.modalTask.loggedTime / this.state.modalTask.estimatedTime;
         return raw.toFixed(2)
-    }
+    };
 
     renderAddModal = () => {
         this.setState({
@@ -344,7 +345,7 @@ class ColumnView extends React.Component {
 
     handleChange = e => {
         e.preventDefault();
-        const isValid = this.validator(e.target)
+        const isValid = this.validator(e.target);
         this.setState({
             [e.target.name]: e.target.value,
             validate: isValid
@@ -353,12 +354,12 @@ class ColumnView extends React.Component {
 
     validator = input => {
         if (input.name === "newName" && this.state.modalTask.name === input.value)
-            return true
+            return true;
         const filter = this.props.tasks.find(task =>
             task.name === input.value
-        )
+        );
         return typeof (filter) === "undefined"
-    }
+    };
 
     componentDidMount() {
         setTimeout(function () {

@@ -1,7 +1,7 @@
 import React from 'react';
 import TaskView from '../views/TaskView'
-import { CommentService } from '../../services/CommentService';
-import { connect } from "react-redux";
+import {CommentService} from '../../services/CommentService';
+import {connect} from "react-redux";
 
 class Task extends React.Component {
     constructor(props) {

@@ -1,13 +1,13 @@
 import React from 'react';
 import HomeView from '../views/HomeView'
-import { ProjectService } from '../../services/ProjectService';
-import { ChatService } from '../../services/ChatService';
+import {ProjectService} from '../../services/ProjectService';
+import {ChatService} from '../../services/ChatService';
 import * as hash from 'object-hash';
 import {connect} from "react-redux";
 
 class Home extends React.Component {
     constructor(props) {
-        super(props)
+        super(props);
         this.projectService = new ProjectService();
         this.chatService = new ChatService();
         this.state = {
@@ -24,19 +24,19 @@ class Home extends React.Component {
     handleSubmit = async data => {
         const projectName = data.projectName;
         this.projectService.addProject(projectName);
-    }
+    };
 
     handleEdit = (name, newName) => {
         this.projectService.editProject(name, newName);
-    }
+    };
 
     handleDelete = async data => {
         this.projectService.deleteProject(data);
-    }
+    };
 
     addMessage = async (content) => {
         this.chatService.addMessage(content, this.props.author);
-    }
+    };
 
     render() {
         return (

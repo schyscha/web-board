@@ -7,7 +7,6 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Project from "../controllers/Project";
 import ChatView from "./ChatView";
-import * as hash from 'object-hash';
 
 require("../../styles/Project.css");
 
@@ -37,7 +36,7 @@ class HomeView extends React.Component {
 
     handleChange = e => {
         e.preventDefault();
-        const isValid = this.validator(e.target)
+        const isValid = this.validator(e.target);
         this.setState({
             [e.target.name]: e.target.value,
             validate: isValid
@@ -46,12 +45,12 @@ class HomeView extends React.Component {
 
     validator = input => {
         if (input.name === "newName" && this.state.modalProject.name === input.value)
-            return true
+            return true;
         const filter = this.props.projects.find(project =>
             project.name === input.value
-        )
+        );
         return typeof (filter) === "undefined"
-    }
+    };
 
     handleDelete = e => {
         e.preventDefault();
