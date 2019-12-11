@@ -26,7 +26,8 @@ class ProjectView extends React.Component {
             showAddBackground: false,
             showChangeBackground: false,
             pickedBackground: "orange",
-            validate: true
+            validate: true,
+            visibilityMap: new Map()
         };
         this.handleChange = this.handleChange.bind(this);
     }
@@ -34,6 +35,10 @@ class ProjectView extends React.Component {
     renderBoards = () => {
         if (this.props.boards.length === 0) {
             return (<div className="no-content">Brak board'ów!</div>)
+        }
+
+        if (this.state.visibilityMap.size === 0) {
+            this.props.boards.map(board => this.state.visibilityMap.set(board.name, true))
         }
 
         return this.props.boards.map(board =>
@@ -88,6 +93,14 @@ class ProjectView extends React.Component {
             })
         };
 
+        const switchVisibility = () => {
+            this.setState(state => {
+                let oldValue = state.visibilityMap.get(board.name)
+                state.visibilityMap.set(board.name, !oldValue)
+                return state
+            })
+        }
+
         const handleEdit = () => {
             this.props.handleEdit(this.state.modalBoard.name, this.state.newName, this.state.newBackground);
             handleClose();
@@ -98,7 +111,7 @@ class ProjectView extends React.Component {
 
         return (
             <div className="board" style={{backgroundColor: board.background}}>
-                <div className="bookmark board-head">
+                <div className="bookmark board-head" onClick={switchVisibility}>
                     {board.name}
                     <Button
                         className="action-button delete"
@@ -168,7 +181,8 @@ class ProjectView extends React.Component {
                         </DialogActions>
                     </Dialog>
                 </div>
-                <Board boardReference={board.ref} name={board.name}/>
+                <Board isHidden={this.state.visibilityMap.get(board.name)} boardReference={board.ref}
+                       name={board.name}/>
             </div>
         )
     };
