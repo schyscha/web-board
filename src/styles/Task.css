@@ -32,3 +32,7 @@
 .MuiDialogContentText-root {
     text-align: center;
 }
+
+.hour {
+    font-weight: bold;
+}

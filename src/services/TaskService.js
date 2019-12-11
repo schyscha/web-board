@@ -29,6 +29,13 @@ class TaskService {
     const idToEdit = firstDoc.id;
     await columnRef.collection(FIREBASE_TASKS_COLLECTION_ID).doc(idToEdit).update({"name": newName, "estimatedTime": estimatedTime, "order": order});
   }
+
+  async setLoggedTime(taskName, loggedTime, columnRef) {
+    const doc = await columnRef.collection(FIREBASE_TASKS_COLLECTION_ID).where('name', '==', taskName).get();
+    const firstDoc = doc.docs[0];
+    const idToEdit = firstDoc.id;
+    await columnRef.collection(FIREBASE_TASKS_COLLECTION_ID).doc(idToEdit).update({"loggedTime": loggedTime});   
+  }
 }
 
 export { TaskService }
