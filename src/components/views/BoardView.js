@@ -23,7 +23,8 @@ class BoardView extends React.Component {
             newName: "",
             newOrder: "",
             validate: true,
-            hideColumns: true
+            hideColumns: true,
+            isHidden: this.props.isHidden
         };
         this.handleChange = this.handleChange.bind(this);
     }
@@ -240,7 +241,7 @@ class BoardView extends React.Component {
         let renderContainer = false;
         if (this.state.render) {
             renderContainer =
-                <div className="board-body" hidden={this.props.isHidden()}>
+                <div className="board-body" hidden={this.state.isHidden}>
                     {this.renderColumns()}
                     {this.renderAddColumn()}
                 </div>

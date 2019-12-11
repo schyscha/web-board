@@ -26,7 +26,8 @@ class ProjectView extends React.Component {
             showAddBackground: false,
             showChangeBackground: false,
             pickedBackground: "orange",
-            validate: true
+            validate: true,
+            visibilityMap: new Map()
         };
         this.handleChange = this.handleChange.bind(this);
     }
@@ -34,6 +35,10 @@ class ProjectView extends React.Component {
     renderBoards = () => {
         if (this.props.boards.length === 0) {
             return (<div className="no-content">Brak board'ów!</div>)
+        }
+
+        if (this.state.visibilityMap.size === 0) {
+            this.props.boards.map(board => this.state.visibilityMap.set(board.name, true))
         }
 
         return this.props.boards.map(board =>
@@ -80,8 +85,6 @@ class ProjectView extends React.Component {
     };
 
     renderBoard = (board) => {
-        var isHidden = true
-
         const handleClose = () => {
             this.setState({
                 newName: "",
@@ -91,13 +94,8 @@ class ProjectView extends React.Component {
         };
 
         const switchVisibility = () => {
-            const change = !isHidden
-            isHidden = change
-            console.log(hide())
-        }
-
-        const hide = () => {
-            return isHidden
+            const oldValue = this.state.visibilityMap.get(board.name)
+            this.state.visibilityMap.set(board.name, !oldValue)
         }
 
         const handleEdit = () => {
@@ -180,7 +178,8 @@ class ProjectView extends React.Component {
                         </DialogActions>
                     </Dialog>
                 </div>
-                <Board isHidden={hide} boardReference={board.ref} name={board.name}/>
+                <Board isHidden={this.state.visibilityMap.get(board.name)} boardReference={board.ref}
+                       name={board.name}/>
             </div>
         )
     };

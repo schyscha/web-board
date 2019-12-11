@@ -8,7 +8,8 @@ class Board extends React.Component {
         this.boardReference = this.props.boardReference;
         this.columnService = new ColumnService();
         this.state = {
-            columns: []
+            columns: [],
+            isHidden: this.props.isHidden
         }
     }
 
@@ -32,7 +33,7 @@ class Board extends React.Component {
     render() {
         return (
             <BoardView
-                isHidden={this.props.isHidden}
+                isHidden={this.state.isHidden}
                 columns={this.state.columns}
                 handleSubmit={this.handleSubmit}
                 handleEdit={this.handleEdit}
