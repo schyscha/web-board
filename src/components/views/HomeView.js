@@ -6,6 +6,8 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Project from "../controllers/Project";
+import ChatView from "./ChatView";
+import * as hash from 'object-hash';
 
 require("../../styles/Project.css");
 
@@ -19,6 +21,9 @@ class HomeView extends React.Component {
             modalProject: "",
             projectName: "",
             newName: "",
+            messages: this.props.messages,
+            chatHidden: true,
+            chatInputValue: "",
             validate: true
         };
         this.handleChange = this.handleChange.bind(this);
@@ -196,11 +201,75 @@ class HomeView extends React.Component {
         );
     };
 
+    renderChat = () => {
+        return (
+            <ChatView
+                messages={this.state.messages}></ChatView>
+        )
+    };
+
+    renderMessageInput = () => {
+        return (
+            <input class="send-message"
+                   onChange={this.updateInputValue}
+            >
+            </input>
+        )
+    };
+
+    updateInputValue = e => {
+        this.setState({
+            chatInputValue: e.target.value
+        });
+    };
+
+    handleSubmit = e => {
+        e.preventDefault();
+        this.props.handleSubmit(this.state);
+        this.setState({projectName: ""});
+    };
+
+    showChat = () => {
+        this.setState({chatHidden: false})
+    };
+
+    closeChat = () => {
+        this.setState({chatHidden: true})
+    };
+
+    sendMessage = () => {
+        const message = this.state.chatInputValue;
+        this.props.addMessage(message);
+    };
+
     render() {
         let renderContainer = false;
         if (this.state.render) {
             renderContainer =
                 <div>
+                    <div class="chat-opener"
+                         onClick={this.showChat}
+                         style={this.state.chatHidden ? {} : {display: 'none'}}
+                    >
+                        <div>
+                            CHAT
+                        </div>
+                    </div>
+                    <div class="chat-window"
+                         style={!this.state.chatHidden ? {} : {display: 'none'}}
+                    >
+                        {this.renderChat()}
+                        {this.renderMessageInput()}
+                        <div class="chat-closer"
+                             onClick={this.closeChat}
+                        >
+                            Zamknij
+                        </div>
+                        <div class="message-sender"
+                             onClick={this.sendMessage}>
+                            Wyślij
+                        </div>
+                    </div>
                     {this.renderProjects()}
                     {this.renderAddProject()}
                 </div>

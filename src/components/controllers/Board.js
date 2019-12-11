@@ -48,7 +48,6 @@ class Board extends React.Component {
                 const data = doc.data();
                 data['ref'] = columnReference;
                 listOfFetchedColumns.push(data);
-                console.log('fetched columns', data);
             });
             listOfFetchedColumns.sort((a, b) => (a.order > b.order) ? 1 : -1)
             this.setState({

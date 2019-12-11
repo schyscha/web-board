@@ -51,7 +51,6 @@ class Project extends React.Component {
                 const data = doc.data();
                 data['ref'] = boardReference;
                 listOfFetchedBoards.push(data);
-                console.log('fetched board', data);
             });
             this.setState({
                 boards: listOfFetchedBoards
