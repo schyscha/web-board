@@ -5,6 +5,11 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faClock} from "@fortawesome/free-solid-svg-icons";
+import ProgressBar from 'react-percent-bar';
+
 
 require("../../styles/Column.css");
 require("../../styles/Task.css");
@@ -16,16 +21,18 @@ class ColumnView extends React.Component {
             render: false,
             modalShow: false,
             modalAddShow: false,
+            timeModalShow: false,
             modalTask: "",
             taskName: "",
             taskOrder: "",
             estimated: "",
             newName: "",
             newOrder: "",
-            newEstimated: ""
+            newEstimated: "",
+            newLoggedTime: "",
+            validate: true
         };
         this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     renderTasks = () => {
@@ -48,13 +55,23 @@ class ColumnView extends React.Component {
         })
     };
 
+    renderTimeModal = (task) => {
+        this.setState({
+            timeModalShow: true,
+            modalTask: task,
+            newLoggedTime: task.loggedTime
+        })
+    };
+
     renderTask = (task) => {
         const handleClose = () => {
             this.setState({
                 newName: "",
                 newOrder: "",
                 newEstimated: "",
-                modalShow: false
+                modalShow: false,
+                timeModalShow: false,
+                newLoggedTime: ""
             })
         };
 
@@ -62,7 +79,7 @@ class ColumnView extends React.Component {
             this.props.handleEdit({
                 "name": this.state.modalTask.name,
                 "newName": this.state.newName,
-                "order": this.state.newOrder,
+                "order": parseInt(this.state.newOrder),
                 "estimatedTime": this.state.newEstimated
             });
             handleClose();
@@ -74,6 +91,10 @@ class ColumnView extends React.Component {
         return (
             <div className="task">
                 <div className="bookmark task-head">
+                    <Button
+                        className="time-button"
+                        onClick={() => this.renderTimeModal(task)}
+                    ><FontAwesomeIcon icon={faClock}/></Button>
                     {task.name}
                     <Button
                         className="action-button delete"
@@ -134,16 +155,62 @@ class ColumnView extends React.Component {
                                 Anuluj
                             </Button>
                             <Button onClick={handleEdit}
-                                    disabled={this.state.newName === "" || this.state.newOrder === "" || this.state.newEstimated === ""}
+                                    disabled={this.state.newName === ""
+                                    || this.state.newOrder === ""
+                                    || this.state.newOrder < 0
+                                    || this.state.newEstimated === ""
+                                    || this.state.newEstimated < 0
+                                    || !this.state.validate}
                                     color="primary">
                                 Zapisz
                             </Button>
                         </DialogActions>
                     </Dialog>
+
+                    <Dialog open={this.state.timeModalShow} aria-labelledby="form-dialog-title">
+                        <DialogTitle id="form-dialog-title">Czas zadania {this.state.modalTask.name}</DialogTitle>
+                        <DialogContent>
+                            <TextField
+                                autoFocus
+                                margin="dense"
+                                name="newLoggedTime"
+                                label="Wykorzystany czas:"
+                                type="number"
+                                min={1}
+                                onChange={this.handleChange}
+                                value={this.state.newLoggedTime}
+                                fullWidth
+                            />
+                        </DialogContent>
+                        <DialogActions>
+                            <Button onClick={handleClose} color="primary">
+                                Wyjdź
+                            </Button>
+                            <Button onClick={handleEdit}
+                                    disabled={this.state.newLoggedTime === ""
+                                    || this.state.newLoggedTime > this.state.modalTask.estimatedTime
+                                    || this.state.newLoggedTime < 0
+                                    }
+                                    color="primary">
+                                Zapisz
+                            </Button>
+                            {/*TODO: DOKONCZYC OBSLUGE ZMIAN PO WSTAWIENIU BACKENDU*/}
+                        </DialogActions>
+                        <DialogContentText>
+                            Wykorzystano {this.percentage()}% czasu
+                            <ProgressBar colorShift={true} fillColor="orange" percent={this.percentage()}
+                                         borderColor="black"/>
+                        </DialogContentText>
+                    </Dialog>
                 </div>
             </div>
         )
     };
+
+    percentage = () => {
+        const raw = 100 * this.state.modalTask.loggedTime / this.state.modalTask.estimatedTime
+        return raw.toFixed(2)
+    }
 
     renderAddModal = () => {
         this.setState({
@@ -163,9 +230,9 @@ class ColumnView extends React.Component {
             this.props.handleSubmit({
                 "estimatedTime": this.state.estimated,
                 "name": this.state.taskName,
-                "order": this.state.taskOrder
+                "order": parseInt(this.state.taskOrder)
             });
-            this.setState({estimatedTime: "", taskName: "", taskOrder: ""});
+            this.setState({estimated: "", taskName: "", taskOrder: ""});
             handleClose();
             this.setState({
                 modalTask: ""
@@ -225,7 +292,10 @@ class ColumnView extends React.Component {
                         <Button onClick={handleAdd}
                                 disabled={this.state.taskName === ""
                                 || this.state.taskOrder === ""
-                                || this.state.estimated === ""}
+                                || this.state.taskOrder < 0
+                                || this.state.estimated === ""
+                                || this.state.estimated < 0
+                                || !this.state.validate}
                                 color="primary">
                             Dodaj
                         </Button>
@@ -242,18 +312,21 @@ class ColumnView extends React.Component {
 
     handleChange = e => {
         e.preventDefault();
-        this.setState({[e.target.name]: e.target.value});
+        const isValid = this.validator(e.target)
+        this.setState({
+            [e.target.name]: e.target.value,
+            validate: isValid
+        });
     };
 
-    handleSubmit = e => {
-        e.preventDefault();
-        this.props.handleSubmit({
-            "estimatedTime": this.state.estimated,
-            "name": this.state.taskName,
-            "order": this.state.taskOrder
-        });
-        this.setState({estimatedTime: "", taskName: "", taskOrder: ""});
-    };
+    validator = input => {
+        if (input.name === "newName" && this.state.modalTask.name === input.value)
+            return true
+        const filter = this.props.tasks.find(task =>
+            task.name === input.value
+        )
+        return typeof (filter) === "undefined"
+    }
 
     componentDidMount() {
         setTimeout(function () {

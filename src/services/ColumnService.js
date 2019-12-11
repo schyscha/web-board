@@ -11,7 +11,7 @@ class ColumnService {
   }
 
   async deleteColumn(name, boardRef) {
-    const doc = boardRef.collection(FIREBASE_COLUMNS_COLLECTION_ID).where('name', '==', name).get();
+    const doc = await boardRef.collection(FIREBASE_COLUMNS_COLLECTION_ID).where('name', '==', name).get();
     const firstDoc = doc.docs[0];
     const idToDelete = firstDoc.id;
     await boardRef.collection(FIREBASE_COLUMNS_COLLECTION_ID).doc(idToDelete).delete();
