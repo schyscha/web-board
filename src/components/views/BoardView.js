@@ -64,6 +64,10 @@ class BoardView extends React.Component {
             });
         };
 
+        const orderInputProps = {
+            min: 0
+        };
+
         return (
             <div className="column">
                 <div className="bookmark column-head">
@@ -98,12 +102,12 @@ class BoardView extends React.Component {
                                 fullWidth
                             />
                             <TextField
+                                inputProps={orderInputProps}
                                 autoFocus
                                 margin="dense"
                                 name="newOrder"
                                 label="Kolejność kolumny"
                                 type="number"
-                                min={1}
                                 onChange={this.handleChange}
                                 value={this.state.newOrder}
                                 fullWidth
@@ -154,6 +158,10 @@ class BoardView extends React.Component {
             });
         };
 
+        const orderInputProps = {
+            min: 0
+        };
+
         return (
             <div className="new-column-button-wrapper">
                 <Button
@@ -178,11 +186,11 @@ class BoardView extends React.Component {
                         >
                         </TextField>
                         <TextField
+                            inputProps={orderInputProps}
                             margin="dense"
                             name="columnOrder"
                             label="Kolejność"
                             type="number"
-                            min={1}
                             onChange={this.handleChange}
                             value={this.state.columnOrder}
                             fullWidth

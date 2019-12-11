@@ -101,8 +101,17 @@ class ColumnView extends React.Component {
             max: task.estimatedTime
         };
 
+        const estimatedTimeInputProps = {
+            step: 0.01,
+            min: 0,
+        };
+
+        const orderInputProps = {
+            min: 0
+        };
+
         return (
-            <div className="task">
+            <div>
                 <div className="bookmark task-head">
                     <Button
                         className="time-button"
@@ -141,23 +150,23 @@ class ColumnView extends React.Component {
                                 fullWidth
                             />
                             <TextField
+                                inputProps={orderInputProps}
                                 autoFocus
                                 margin="dense"
                                 name="newOrder"
                                 label="Kolejność zadania"
                                 type="number"
-                                min={1}
                                 onChange={this.handleChange}
                                 value={this.state.newOrder}
                                 fullWidth
                             />
                             <TextField
+                                inputProps={estimatedTimeInputProps}
                                 autoFocus
                                 margin="dense"
                                 name="newEstimated"
-                                label="Czas zadania"
+                                label="Czas zadania (h)"
                                 type="number"
-                                min={1}
                                 onChange={this.handleChange}
                                 value={this.state.newEstimated}
                                 fullWidth
@@ -189,7 +198,7 @@ class ColumnView extends React.Component {
                                 autoFocus
                                 margin="dense"
                                 name="newLoggedTime"
-                                label="Wykorzystany czas:"
+                                label="Wykorzystany czas (h):"
                                 type="number"
                                 onChange={this.handleChange}
                                 value={this.state.newLoggedTime}
@@ -253,6 +262,15 @@ class ColumnView extends React.Component {
             });
         };
 
+        const estimatedTimeInputProps = {
+            step: 0.01,
+            min: 0,
+        };
+
+        const orderInputProps = {
+            min: 0
+        };
+
         return (
             <div>
                 <Button
@@ -277,22 +295,22 @@ class ColumnView extends React.Component {
                         >
                         </TextField>
                         <TextField
+                            inputProps={orderInputProps}
                             margin="dense"
                             name="taskOrder"
                             label="Kolejność"
                             type="number"
-                            min={1}
                             onChange={this.handleChange}
                             value={this.state.taskOrder}
                             fullWidth
                         >
                         </TextField>
                         <TextField
+                            inputProps={estimatedTimeInputProps}
                             margin="dense"
                             name="estimated"
-                            label="Szacowany czas"
+                            label="Szacowany czas (h)"
                             type="number"
-                            min={1}
                             onChange={this.handleChange}
                             value={this.state.estimated}
                             fullWidth

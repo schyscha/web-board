@@ -308,7 +308,7 @@ class ProjectView extends React.Component {
         let renderContainer = false;
         if (this.state.render) {
             renderContainer =
-                <div className="project-body">
+                <div>
                     {this.renderBoards()}
                     {this.renderAddBoard()}
                 </div>

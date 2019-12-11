@@ -15,6 +15,7 @@
 
 .board-head {
     background-color: #6895bb;
+    cursor: pointer;
 }
 
 .board-body {
