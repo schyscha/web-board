@@ -94,8 +94,11 @@ class ProjectView extends React.Component {
         };
 
         const switchVisibility = () => {
-            const oldValue = this.state.visibilityMap.get(board.name)
-            this.state.visibilityMap.set(board.name, !oldValue)
+            this.setState(state => {
+                let oldValue = state.visibilityMap.get(board.name)
+                state.visibilityMap.set(board.name, !oldValue)
+                return state
+            })
         }
 
         const handleEdit = () => {
